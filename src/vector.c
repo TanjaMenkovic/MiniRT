@@ -1,4 +1,4 @@
-#include "maths.h"
+#include "../headers/vector.h"
 
 float	ft_sqr(float n)
 {

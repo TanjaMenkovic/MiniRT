@@ -1,5 +1,5 @@
-#ifndef MATHS_H
-# define MATHS_H
+#ifndef VECTOR_H
+# define VECTOR_H
 
 # include <math.h>
 
