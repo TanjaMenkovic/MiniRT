@@ -2,8 +2,6 @@
 
 static void check_args(int argc, char **argv)
 {
-    char    *filename;
-
     if (argc != 2)
     {
         error_msg("number of arguments is not valid!\n", "Usage: ./miniRT <scene_file.rt>\n");
@@ -18,7 +16,9 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    check_args(argc, argv);
+    char    *filename;
 
+    check_args(argc, argv);
+    filename = ft_strdup(argv[1]);
     return (0);
 }
