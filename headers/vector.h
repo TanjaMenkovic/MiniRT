@@ -3,6 +3,10 @@
 
 # include <math.h>
 
+# include <unistd.h>
+# include <stdio.h>
+# include "../libft/headers/libft.h"
+
 typedef struct s_vector
 {
 	float x;
