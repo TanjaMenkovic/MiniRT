@@ -1,4 +1,4 @@
-#include "headers/minirt.h"
+#include "../headers/minirt.h"
 
 static void check_args(int argc, char **argv)
 {
