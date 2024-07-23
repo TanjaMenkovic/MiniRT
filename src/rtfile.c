@@ -74,7 +74,7 @@ t_rt    parse_rt(char *file)
         str = get_next_line(fd);
 
         //check if it only line with white spaces, it needs to be skipped
-        line = ft_splitstr(str, "  \n\t\r\v\f");
+        line = ft_splitset(str, "  \n\t\r\v\f");
         if (ft_strcmp(line[0], "A") == 0)
             parse_amb(line);
         else if (ft_strcmp(line[0], "C") == 0)
