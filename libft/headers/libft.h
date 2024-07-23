@@ -60,6 +60,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3);
 char	*ft_strjoin_new(char **s1, char **s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+char	**ft_splitset(char *str, char *charset);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));

@@ -63,8 +63,38 @@ t_rt    parse_rt(char *file)
 {
     t_rt    rt;
     int     fd;
+    char    **line;
+    char    *str;
+    
 
     fd = open_file(file);
 
+    while (fd)
+    {
+        str = get_next_line(fd);
+
+        //check if it only line with white spaces, it needs to be skipped
+        line = ft_splitstr(str, "  \n\t\r\v\f");
+        if (ft_strcmp(line[0], "A") == 0)
+            parse_amb(line);
+        else if (ft_strcmp(line[0], "C") == 0)
+            parse_amb(line);
+        else if (ft_strcmp(line[0], "L") == 0)
+            parse_amb(line);
+        else if (ft_strcmp(line[0], "sp") == 0)
+            parse_amb(line);
+        else if (ft_strcmp(line[0], "pl") == 0)
+            parse_amb(line);
+        else if (ft_strcmp(line[0], "cy") == 0)
+            parse_amb(line);
+        else
+        {
+            error_msg("incorrect value in .rt file!\n", "Correct starting with: A/C/L/sp/pl/cy");
+            exit(EXIT_FAILURE);
+        }
+
+        free(str);
+        // free line
+    }
     return (rt);
 }
