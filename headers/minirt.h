@@ -76,12 +76,12 @@ typedef struct s_rt
 int open_file(char *file);
 
 /* rtfile.c */
-t_amb       parse_amb(char **line);
-t_camera    parse_camera(char **line);
-t_light     parse_light(char **line);
-t_sphere    parse_sphere(char **line);
-t_plane     parse_plane(char **line);
-t_cylinder  parse_cylinder(char **line);
+t_amb       parse_amb(char **line, t_rt *rt);
+t_camera    parse_camera(char **line, t_rt *rt);
+t_light     parse_light(char **line, t_rt *rt);
+t_sphere    parse_sphere(char **line, t_rt *rt);
+t_plane     parse_plane(char **line, t_rt *rt);
+t_cylinder  parse_cylinder(char **line, t_rt *rt);
 t_rt        parse_rt(char *file);
 
 #endif

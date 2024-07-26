@@ -16,9 +16,10 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    char    *filename;
+    t_rt    rt;
+
 
     check_args(argc, argv);
-    filename = ft_strdup(argv[1]);
+    rt = parse_rt(argv[1]);
     return (0);
 }
