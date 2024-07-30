@@ -11,91 +11,53 @@ we need to check if we need another split for first splitting it
 based on white spaces, or it can be splited only based on space.
 */
 
-t_amb    parse_amb(char **line, t_rt *rt)
+/*
+parsing functions are returning 1 in case nothing fails, and 0 if 
+there are some errors
+*/
+
+int    parse_rt(char *file, t_rt *rt)
 {
-    t_amb   a;
-
-    numofel(line, 3);
-
-    return (a);
-}
-
-t_camera    parse_camera(char **line, t_rt *rt)
-{
-    t_camera       c;
-
-    numofel(line, 4);
-    return (c);
-}
-
-t_light    parse_light(char **line, t_rt *rt)
-{
-    t_light l;
-
-    numofel(line, 4);
-    return (l);
-}
-
-t_sphere    parse_sphere(char **line, t_rt *rt)
-{
-    t_sphere    sp;
-
-    numofel(line, 4);
-    return (sp);
-}
-
-t_plane    parse_plane(char **line, t_rt *rt)
-{
-    t_plane pl;
-
-    numofel(line, 4);
-    return (pl);
-}
-
-t_cylinder    parse_cylinder(char **line, t_rt *rt)
-{
-    t_cylinder  cy;
-
-    numofel(line, 6);
-    return (cy);
-}
-
-t_rt    parse_rt(char *file)
-{
-    t_rt    rt;
     int     fd;
     char    **line;
     char    *str;
+    int     i;
     
-
     fd = open_file(file);
-    rt = ft_calloc(sizeof(t_rt), 1);
+    
+    //rt = malloc(sizeof(t_rt));
     while (fd)
     {
+        i = 1;
         str = get_next_line(fd);
         line = ft_splitset(str, " \n\t\r\v\f");
         free(str);
         if (ft_strcmp(line[0], "A") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (ft_strcmp(line[0], "C") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (ft_strcmp(line[0], "L") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (ft_strcmp(line[0], "sp") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (ft_strcmp(line[0], "pl") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (ft_strcmp(line[0], "cy") == 0)
-            parse_amb(line, &rt);
+            i = parse_amb(line, rt);
         else if (line[0])
         {
-            free_arr(line);
+            i = 0;
             error_msg("incorrect value in .rt file!\n", "Correct starting with: A/C/L/sp/pl/cy");
-            exit(EXIT_FAILURE);
+        }
+        if (i == 0)
+        {
+            free_arr(line);
+            close (fd);
+            return (0);
         }
         free_arr(line);
     }
 
     close(fd);
-    return (rt);
+    return (1);
 }

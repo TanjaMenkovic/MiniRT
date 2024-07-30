@@ -16,10 +16,9 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    t_rt    rt;
-
+    //t_rt    rt;
 
     check_args(argc, argv);
-    rt = parse_rt(argv[1]);
+    //rt = parse_rt(argv[1]);
     return (0);
 }

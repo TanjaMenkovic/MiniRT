@@ -11,6 +11,7 @@
 /* A 0.2 255,255,255 */
 typedef struct s_amb
 {
+    int id;
     float ratio;
     t_vector col;
 }   t_amb;
@@ -18,6 +19,7 @@ typedef struct s_amb
 /* C 0,0,0 0,0,1 70 */
 typedef struct s_camera
 {
+    int id;
     t_vector point; //view_point
     t_vector or_vec; //orientation vector
     float fov; // Horizontal field of view 
@@ -26,6 +28,7 @@ typedef struct s_camera
 /* L -40.0,50.0,0.0 0.6 10,0,255 */
 typedef struct s_light
 {
+    int id;
     t_vector point; //light point
     float bright; //brightness ratio
     t_vector col; //color
@@ -34,6 +37,8 @@ typedef struct s_light
 /* sp 0,0,20 10 255,0,0 */
 typedef struct s_sphere
 {
+    int id;
+    int num;
     t_vector center;
     float radius;
     t_vector col;
@@ -42,6 +47,7 @@ typedef struct s_sphere
 /* pl 0,-10,0 0,1,0 0,255,0 */
 typedef struct s_plane
 {
+    int id;
     t_vector point;
     t_vector normal; //3d normalized normal vector
     t_vector col;
@@ -50,6 +56,7 @@ typedef struct s_plane
 /* cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255 */
 typedef struct s_cylinder
 {
+    int id;
     t_vector center;
     t_vector normal;
     float radius;
@@ -75,13 +82,28 @@ typedef struct s_rt
 /* files.c */
 int open_file(char *file);
 
+/* parse_utils.c */
+int parse_ratio(char *str, float *num);
+int parse_view(char *str, float *num);
+int parse_normvec(char *str, t_vector *v);
+int parse_color(char *str, t_vector *v);
+
+/* parse_utils1.c */
+int parse_float(char *str, float *num);
+int parse_ulong(char *str, size_t *num);
+int parse_vector(char *str, t_vector *v);
+
+/* parse_mandatory.c */
+int       parse_amb(char **line, t_rt *rt);
+int    parse_camera(char **line, t_rt *rt);
+int     parse_light(char **line, t_rt *rt);
+
+/* parse_objects.c */
+int    parse_sphere(char **line, t_rt *rt);
+int     parse_plane(char **line, t_rt *rt);
+int  parse_cylinder(char **line, t_rt *rt);
+
 /* rtfile.c */
-t_amb       parse_amb(char **line, t_rt *rt);
-t_camera    parse_camera(char **line, t_rt *rt);
-t_light     parse_light(char **line, t_rt *rt);
-t_sphere    parse_sphere(char **line, t_rt *rt);
-t_plane     parse_plane(char **line, t_rt *rt);
-t_cylinder  parse_cylinder(char **line, t_rt *rt);
-t_rt        parse_rt(char *file);
+int        parse_rt(char *file, t_rt *rt);
 
 #endif

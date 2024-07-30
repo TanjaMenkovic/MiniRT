@@ -1,6 +1,6 @@
 SRC_FILES = char/ft_isalpha.c char/ft_isdigit.c char/ft_isalnum.c char/ft_isascii.c \
 			char/ft_isprint.c char/ft_isspace.c char/ft_tolower.c char/ft_toupper.c \
-			str/ft_strlen.c str/ft_strlcpy.c str/ft_strlcat.c str/ft_striteri.c ft_splitset.c\
+			str/ft_strlen.c str/ft_strlcpy.c str/ft_strlcat.c str/ft_striteri.c str/ft_splitset.c\
 			str/ft_strchr.c str/ft_strrchr.c str/ft_strncmp.c str/ft_strcmp.c str/ft_skip.c \
 			str/ft_strnstr.c str/ft_atoi.c str/ft_strdup.c str/ft_substr.c str/ft_strjoin.c \
 			str/ft_strtrim.c str/ft_split.c str/ft_itoa.c str/ft_strmapi.c str/ft_parse_substr.c \
