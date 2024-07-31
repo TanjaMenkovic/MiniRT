@@ -70,6 +70,7 @@ void	psfd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		is_substr(char *str, char *sub);
+void	ft_num_of_sub(const char *str, const char *sub, int *count);
 void	ft_strncpy(char *dest, char *src, int n);
 int		ft_atoi_short(char *str);
 int		is_in_str(char *str, char c, int start, int end);

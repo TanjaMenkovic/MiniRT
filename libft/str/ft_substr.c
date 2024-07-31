@@ -44,3 +44,31 @@ int	is_substr(char *str, char *sub)
 	}
 	return (0);
 }
+
+void	ft_num_of_sub(const char *str, const char *sub, int *count)
+{
+    int i;
+    int j;
+
+    i = 0;
+	if (!str || !sub)
+		return ;
+    while (str[i])
+    {
+        j = 0;
+        if (str[i] == sub[j])
+		{
+			while (str[i])
+			{
+				if (str[i] != sub[j])
+					break ;
+				i++;
+				j++;
+			}
+			if (sub[j] == 0)
+				(*count)++;
+		}
+		else
+			i++;
+    }
+}
