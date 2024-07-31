@@ -16,9 +16,21 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    //t_rt    rt;
+    t_rt    *rt;
+    int fd;
+    t_index j;
 
     check_args(argc, argv);
-    //rt = parse_rt(argv[1]);
+    fd = open_file(argv[1]);
+    init_index(&j);
+    rt = (t_rt *)malloc(sizeof(t_rt));
+    if (parse_rt(rt, fd, &j) == 0)
+    {
+        //free everything
+        close(fd);
+        return (1);
+    }
+    if (!rt->a.id)
+    close(fd);
     return (0);
 }

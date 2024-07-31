@@ -11,7 +11,9 @@ LIBS_MAC := $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw \
             -framework OpenGL -framework IOKit ./libft/libft.a
 
 SRCS := src/main.c src/errors.c src/files.c src/ray.c src/rtfile.c \
-        src/utils.c src/vector.c
+        src/utils.c src/vector.c src/init.c src/parse_mandatory.c \
+		src/parse_objects.c src/parse_utils.c src/utils1.c \
+		src/parse_utils1.c
 
 OBJS := $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
 

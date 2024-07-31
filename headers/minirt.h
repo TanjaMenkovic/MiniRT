@@ -38,7 +38,6 @@ typedef struct s_light
 typedef struct s_sphere
 {
     int id;
-    int num;
     t_vector center;
     float radius;
     t_vector col;
@@ -79,6 +78,13 @@ typedef struct s_rt
 
 }   t_rt;
 
+typedef struct s_index
+{
+    int s;
+    int p;
+    int c;
+}   t_index;
+
 /* files.c */
 int open_file(char *file);
 
@@ -99,11 +105,12 @@ int    parse_camera(char **line, t_rt *rt);
 int     parse_light(char **line, t_rt *rt);
 
 /* parse_objects.c */
-int    parse_sphere(char **line, t_rt *rt);
-int     parse_plane(char **line, t_rt *rt);
-int  parse_cylinder(char **line, t_rt *rt);
+int    parse_sphere(char **line, t_rt *rt, int id);
+int     parse_plane(char **line, t_rt *rt, int id);
+int  parse_cylinder(char **line, t_rt *rt, int id);
 
 /* rtfile.c */
-int        parse_rt(char *file, t_rt *rt);
+void init_index(t_index *j);
+int        parse_rt(t_rt *rt, int fd, t_index *j);
 
 #endif
