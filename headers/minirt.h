@@ -75,7 +75,6 @@ typedef struct s_rt
     int num_sp;
     int num_pl;
     int num_cy;
-
 }   t_rt;
 
 typedef struct s_index
@@ -112,5 +111,8 @@ int  parse_cylinder(char **line, t_rt *rt, int id);
 /* rtfile.c */
 void init_index(t_index *j);
 int        parse_rt(t_rt *rt, int fd, t_index *j);
+
+/* init.c */
+void    init_rt(t_rt *rt, int fd, t_index *j, char **argv);
 
 #endif

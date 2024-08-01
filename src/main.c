@@ -20,10 +20,10 @@ int main(int argc, char **argv)
     int fd;
     t_index j;
 
+    rt = NULL;
     check_args(argc, argv);
     fd = open_file(argv[1]);
-    init_index(&j);
-    rt = (t_rt *)malloc(sizeof(t_rt));
+    init_rt(rt, fd, &j, argv);
     if (parse_rt(rt, fd, &j) == 0)
     {
         //free everything

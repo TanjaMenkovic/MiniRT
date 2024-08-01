@@ -10,10 +10,12 @@ LIBS_MAC := $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw \
             -L"/opt/homebrew/Cellar/glfw/3.3.9/lib/" -framework Cocoa \
             -framework OpenGL -framework IOKit ./libft/libft.a
 
-SRCS := src/main.c src/errors.c src/files.c src/ray.c src/rtfile.c \
-        src/utils.c src/vector.c src/init.c src/parse_mandatory.c \
-		src/parse_objects.c src/parse_utils.c src/utils1.c \
-		src/parse_utils1.c
+SRCS := src/main.c src/errors/errors.c src/parsing/files.c src/ray/ray.c \
+		src/parsing/rtfile.c src/parsing/init.c \
+        src/utils/utils.c src/vector/vector.c src/parsing/init.c \
+		src/parsing/parse_mandatory.c src/vector/vector1.c \
+		src/parsing/parse_objects.c src/parsing/parse_utils.c src/utils/utils1.c \
+		src/parsing/parse_utils1.c
 
 OBJS := $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
 
