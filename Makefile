@@ -17,7 +17,7 @@ SRCS := src/main.c src/errors/errors.c src/parsing/files.c src/ray/ray.c \
 		src/parsing/parse_objects.c src/parsing/parse_utils.c src/utils/utils1.c \
 		src/parsing/parse_utils1.c
 
-OBJS := $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
+OBJS := $(SRCS:src/%.c=obj/%.o)
 
 all: libmlx libft $(NAME)
 
