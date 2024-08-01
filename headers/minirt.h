@@ -113,6 +113,6 @@ void init_index(t_index *j);
 int        parse_rt(t_rt *rt, int fd, t_index *j);
 
 /* init.c */
-void    init_rt(t_rt *rt, int fd, t_index *j, char **argv);
+void    init_rt(t_rt *rt, t_index *j, char **argv);
 
 #endif

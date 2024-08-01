@@ -23,7 +23,7 @@ void init_index(t_index *j)
     j->s = 0;
 }
 
-static  parse_line(char **line, t_rt *rt, t_index *j, int *i)
+static  void    parse_line(char **line, t_rt *rt, t_index *j, int *i)
 {
     if (ft_strcmp(line[0], "A") == 0)
         *i = parse_amb(line, rt);

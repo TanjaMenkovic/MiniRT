@@ -39,9 +39,7 @@ int parse_normvec(char *str, t_vector *v) // float values between [-1,1]
 int parse_color(char *str, t_vector *v) // values from [0,255] divided by 255, to get normalized values
 {
     char    **vec;
-    int     i;
 
-    i = -1;
     vec = ft_split(str, ',');
     if (doublelen(vec) != 3)
     {

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     rt = NULL;
     check_args(argc, argv);
     fd = open_file(argv[1]);
-    init_rt(rt, fd, &j, argv);
+    init_rt(rt, &j, argv);
     if (parse_rt(rt, fd, &j) == 0)
     {
         //free everything

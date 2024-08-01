@@ -24,9 +24,7 @@ int parse_float(char *str, float *num)
 int parse_vector(char *str, t_vector *v) //any float values
 {
     char    **vec;
-    int     i;
 
-    i = -1;
     vec = ft_split(str, ',');
     if (doublelen(vec) != 3)
     {

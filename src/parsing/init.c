@@ -16,18 +16,16 @@ CHEK IF IT'S CORRECT!
 static void    count_str(t_rt *rt, t_index *j, char **argv)
 {
     char *str;
-    int     i;
     int     fd;
 
     init_index(j);
     fd = open_file(argv[1]);
     while (fd)
     {
-        i = 0;
         str = get_next_line(fd);
-        ft_num_of_sub(str, "sp", j->s);
-        ft_num_of_sub(str, "pl", j->p);
-        ft_num_of_sub(str, "cy", j->c);
+        ft_num_of_sub(str, "sp", &j->s);
+        ft_num_of_sub(str, "pl", &j->p);
+        ft_num_of_sub(str, "cy", &j->c);
         free(str);
     }
     rt->num_sp = j->s;
@@ -37,7 +35,7 @@ static void    count_str(t_rt *rt, t_index *j, char **argv)
     close(fd);
 }
 
-void    init_rt(t_rt *rt, int fd, t_index *j, char **argv)
+void    init_rt(t_rt *rt, t_index *j, char **argv)
 {
     rt = (t_rt *)malloc(sizeof(t_rt));
     count_str(rt, j, argv);

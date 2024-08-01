@@ -57,6 +57,7 @@ int is_float(char *str)
             is_dot = 1;
         i++;
     }
+    return (1);
 }
 
 /* 
