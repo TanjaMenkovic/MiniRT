@@ -1,4 +1,4 @@
-#include "../headers/minirt.h"
+#include "../../headers/minirt.h"
 
 int parse_ulong(char *str, size_t *num)
 {

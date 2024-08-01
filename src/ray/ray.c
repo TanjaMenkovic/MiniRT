@@ -1,4 +1,4 @@
-#include "../headers/ray.h"
+#include "../../headers/ray.h"
 
 t_ray   init_ray(t_vector s, t_vector d)
 {

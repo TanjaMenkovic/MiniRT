@@ -1,4 +1,4 @@
-#include "../headers/errors.h"
+#include "../../headers/errors.h"
 
 void	error_msg(char *c, char *str)
 {

@@ -1,4 +1,4 @@
-#include "../headers/minirt.h"
+#include "../../headers/minirt.h"
 
 int    parse_amb(char **line, t_rt *rt)
 {

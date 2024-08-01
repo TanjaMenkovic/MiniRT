@@ -1,4 +1,4 @@
-#include "../headers/minirt.h"
+#include "../../headers/minirt.h"
 
 /* 
 initialize t_rt at the beginning 
@@ -8,6 +8,11 @@ put all id to be 0
 make initialization for each smaller struct and marge it there
 */
 
+/*
+count how many sp, pl and cy are in file and add it to the struct
+
+CHEK IF IT'S CORRECT!
+*/
 void    count_str(t_rt *rt, int fd, t_index *j)
 {
     char *str;

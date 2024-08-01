@@ -1,4 +1,4 @@
-#include "../headers/minirt.h"
+#include "../../headers/minirt.h"
 
 /* 
 we need to see how actually this .rt file looks

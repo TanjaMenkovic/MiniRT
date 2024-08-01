@@ -20,14 +20,14 @@ typedef struct	s_point
 	float y;
 }	t_point;
 
-//math functions
+/* vector.c */
 float		ft_sqr(float n);
-
-//vector functions
 float		vec_len(t_vector v);
 t_vector	vec_add(t_vector v, t_vector u);
 t_vector	vec_neg(t_vector v);
 t_vector	vec_mult(t_vector v, float a);
+
+/* vector1.c */
 t_vector	vec_div(t_vector v, float a);
 float		dot_prod(t_vector v, t_vector u);
 t_vector	cross_prod(t_vector v, t_vector u);

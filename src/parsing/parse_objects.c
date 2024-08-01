@@ -1,4 +1,4 @@
-#include "../headers/minirt.h"
+#include "../../headers/minirt.h"
 
 /*
 check if I want to make it as an array, or I want to make it as list.
