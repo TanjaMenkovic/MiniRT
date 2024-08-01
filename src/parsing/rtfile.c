@@ -71,10 +71,9 @@ int    parse_rt(t_rt *rt, int fd, t_index *j)
     char    *str;
     int     i;
     
-    while (fd)
+    while ((str = get_next_line(fd)) != NULL)
     {
         i = 1;
-        str = get_next_line(fd);
         line = ft_splitset(str, " \n\t\r\v\f");
         free(str);
         parse_line(line, rt, j, &i);

@@ -22,15 +22,21 @@ int main(int argc, char **argv)
 
     rt = NULL;
     check_args(argc, argv);
+    printf("1\n");
     fd = open_file(argv[1]);
+    printf("2\n");
     init_rt(rt, &j, argv);
+    printf("%d %d %d\n", rt->num_cy, rt->num_pl, rt->num_sp);
+    printf("3\n");
     if (parse_rt(rt, fd, &j) == 0)
     {
+        printf("4\n");
         //free everything
         close(fd);
         return (1);
     }
-    if (!rt->a.id)
+    printf("5\n");
+    // if (!rt->a.id)
     close(fd);
     return (0);
 }

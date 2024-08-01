@@ -20,9 +20,8 @@ static void    count_str(t_rt *rt, t_index *j, char **argv)
 
     init_index(j);
     fd = open_file(argv[1]);
-    while (fd)
+    while ((str = get_next_line(fd)) != NULL)
     {
-        str = get_next_line(fd);
         ft_num_of_sub(str, "sp", &j->s);
         ft_num_of_sub(str, "pl", &j->p);
         ft_num_of_sub(str, "cy", &j->c);
