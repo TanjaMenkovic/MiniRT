@@ -13,13 +13,11 @@ count how many sp, pl and cy are in file and add it to the struct
 
 CHEK IF IT'S CORRECT!
 */
-static void    count_str(t_rt *rt, t_index *j, char **argv)
+static void    count_str(t_rt *rt, t_index *j, int fd)
 {
     char *str;
-    int     fd;
 
     init_index(j);
-    fd = open_file(argv[1]);
     while ((str = get_next_line(fd)) != NULL)
     {
         ft_num_of_sub(str, "sp", &j->s);
@@ -31,17 +29,27 @@ static void    count_str(t_rt *rt, t_index *j, char **argv)
     rt->num_pl = j->p;
     rt->num_cy = j->c;
     init_index(j);
-    close(fd);
 }
 
 void    init_rt(t_rt *rt, t_index *j, char **argv)
 {
-    rt = (t_rt *)malloc(sizeof(t_rt));
-    count_str(rt, j, argv);
+    int fd;
+
+ //   *rt = (t_rt *)malloc(sizeof(t_rt));
+    fd = open_file(argv[1]);
+    count_str(rt, j, fd);
+    close (fd);
     rt->a.id = 0;
     rt->c.id = 0;
     rt->l.id = 0;
     rt->sp = (t_sphere *)malloc(sizeof(t_sphere) * rt->num_sp);
     rt->cy = (t_cylinder *)malloc(sizeof(t_cylinder) * rt->num_cy);
     rt->pl = (t_plane *)malloc(sizeof(t_plane) * rt->num_pl);
+    if (!rt->sp || !rt->cy || !rt->pl)
+    {
+        free(rt->sp);
+        free(rt->cy);
+        free(rt->pl);
+        malloc_error();
+    }
 }

@@ -42,6 +42,7 @@ static  void    parse_line(char **line, t_rt *rt, t_index *j, int *i)
         *i = 0;
         error_msg("incorrect value in .rt file!\n", "Correct starting with: A/C/L/sp/pl/cy");
     }
+    printf("Parsing line: %s\n", line[0]);
 }
 
 /* checking if we have ambient lighting, camera and light in our file */
@@ -65,6 +66,8 @@ static int  check_mandatory(t_rt *rt)
     return (1);
 }
 
+/* fix splitset and test again, if it is still seg faulitng, test parsing everything!
+init is tested and should be fine. maybe some extra allocation is needed */
 int    parse_rt(t_rt *rt, int fd, t_index *j)
 {
     char    **line;
@@ -74,7 +77,14 @@ int    parse_rt(t_rt *rt, int fd, t_index *j)
     while ((str = get_next_line(fd)) != NULL)
     {
         i = 1;
+        printf("Read line: %s\n", str);
         line = ft_splitset(str, " \n\t\r\v\f");
+        if (!line) {
+            error_msg("ft_splitset failed\n", NULL);
+            free(str);
+            close(fd);
+            return 0;
+        }
         free(str);
         parse_line(line, rt, j, &i);
         if (i == 0)

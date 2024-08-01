@@ -16,19 +16,18 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    t_rt    *rt;
+    t_rt    rt;
     int fd;
     t_index j;
 
-    rt = NULL;
     check_args(argc, argv);
     printf("1\n");
-    fd = open_file(argv[1]);
+    init_rt(&rt, &j, argv);
     printf("2\n");
-    init_rt(rt, &j, argv);
-    printf("%d %d %d\n", rt->num_cy, rt->num_pl, rt->num_sp);
+    fd = open_file(argv[1]);
+    printf("%d %d %d\n", rt.num_cy, rt.num_pl, rt.num_sp);
     printf("3\n");
-    if (parse_rt(rt, fd, &j) == 0)
+    if (parse_rt(&rt, fd, &j) == 0)
     {
         printf("4\n");
         //free everything
