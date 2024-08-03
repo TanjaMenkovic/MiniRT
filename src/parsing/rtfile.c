@@ -77,26 +77,27 @@ int    parse_rt(t_rt *rt, int fd, t_index *j)
     while ((str = get_next_line(fd)) != NULL)
     {
         i = 1;
-        printf("Read line: %s\n", str);
+        printf("Read line: %s_______endofline\n", str);
         line = ft_splitset(str, " \n\t\r\v\f");
-        if (!line) {
-            error_msg("ft_splitset failed\n", NULL);
-            free(str);
-            close(fd);
-            return 0;
-        }
         free(str);
-        parse_line(line, rt, j, &i);
+        printf("rl1\n");
+        if (!line)
+            i = 0;
+        else if (line && line[0])
+            parse_line(line, rt, j, &i);
+        printf("rl2\n");
+        free_arr(line);
         if (i == 0)
         {
-            free_arr(line);
             close (fd);
             return (0);
         }
-        free_arr(line);
+        printf("rl3\n");
     }
     close(fd);
+    printf("rl4\n");
     if (check_mandatory(rt) == 0)
         return (0);
+    printf("rl5\n");
     return (1);
 }
