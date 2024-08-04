@@ -16,22 +16,22 @@ static void check_args(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-    t_rt    *rt;
+    t_rt    rt;
     int fd;
     t_index j;
 
     check_args(argc, argv);
     printf("1\n");
-    if (!(rt = (t_rt *)malloc(sizeof(rt))))
-        malloc_error();
-    ft_memset(rt, 0, sizeof(t_rt));
+    // if (!(rt = (t_rt *)malloc(sizeof(rt))))
+    //     malloc_error();
+    // ft_memset(rt, 0, sizeof(t_rt));
     printf("2\n");
-    init_rt(rt, &j, argv);
+    init_rt(&rt, &j, argv);
     printf("3\n");
     fd = open_file(argv[1]);
-    printf("%d %d %d\n", rt->num_cy, rt->num_pl, rt->num_sp);
+    printf("%d %d %d\n", rt.num_cy, rt.num_pl, rt.num_sp);
     printf("4\n");
-    if (parse_rt(rt, fd, &j) == 0)
+    if (parse_rt(&rt, fd, &j) == 0)
     {
         printf("5\n");
         //free everything
