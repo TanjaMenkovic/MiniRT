@@ -115,4 +115,13 @@ int        parse_rt(t_rt *rt, int fd, t_index *j);
 /* init.c */
 void    init_rt(t_rt *rt, t_index *j, char **argv);
 
+/* init1.c */
+void    init_vector(t_vector *v);
+void    init_amb(t_rt *rt);
+void    init_camera(t_rt *rt);
+void    init_light(t_rt *rt);
+void    init_sphere(t_rt *rt);
+void    init_plane(t_rt *rt);
+void    init_cylinder(t_rt *rt);
+
 #endif

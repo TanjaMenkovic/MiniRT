@@ -12,7 +12,7 @@ LIBS_MAC := $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw \
 
 COMMON_SRC := src/main.c \
               src/errors/errors.c \
-              src/parsing/files.c src/parsing/init.c src/parsing/parse_mandatory.c \
+              src/parsing/files.c src/parsing/init.c src/parsing/init1.c src/parsing/parse_mandatory.c \
               src/parsing/parse_objects.c src/parsing/parse_utils.c src/parsing/parse_utils1.c src/parsing/rtfile.c \
               src/ray/ray.c \
               src/utils/utils.c src/utils/utils1.c \

@@ -32,3 +32,19 @@ int is_color(char **str)
     }
     return (1);
 }
+
+void    print_doublearr(char **arr)
+{
+    int i;
+
+    i = 0;
+    if (!arr || !arr[0])
+        return ;
+    printf("---------------------\nprinting array:\n");
+    while (arr[i])
+    {
+        printf("%s\n", arr[i]);
+        i++;
+    }
+    printf("---------------------\n");
+}
