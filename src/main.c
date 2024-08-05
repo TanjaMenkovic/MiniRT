@@ -22,23 +22,19 @@ int main(int argc, char **argv)
 
     check_args(argc, argv);
     printf("1\n");
-    // if (!(rt = (t_rt *)malloc(sizeof(rt))))
-    //     malloc_error();
-    // ft_memset(rt, 0, sizeof(t_rt));
-    printf("2\n");
     init_rt(&rt, &j, argv);
-    printf("3\n");
+    printf("2\n");
     fd = open_file(argv[1]);
     printf("%d %d %d\n", rt.num_cy, rt.num_pl, rt.num_sp);
-    printf("4\n");
+    printf("3\n");
     if (parse_rt(&rt, fd, &j) == 0)
     {
-        printf("5\n");
+        printf("4\n");
         //free everything
         close(fd);
         return (1);
     }
-    printf("6\n");
+    printf("5\n");
     // if (!rt->a.id)
     close(fd);
     return (0);

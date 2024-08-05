@@ -22,6 +22,15 @@ t_vector	vec_add(t_vector v, t_vector u)
 	return (w);
 }
 
+t_vector	vec_sub(t_vector v, t_vector u)
+{
+	t_vector	w;
+	w.x = v.x - u.x;
+	w.y = v.y - u.y;
+	w.z = v.z - u.z;
+	return (w);
+}
+
 t_vector	vec_neg(t_vector v)
 {
 	t_vector	w;
@@ -29,15 +38,5 @@ t_vector	vec_neg(t_vector v)
 	w.x = -v.x;
 	w.y = -v.y;
 	w.z = -v.z;
-	return (w);
-}
-
-t_vector	vec_mult(t_vector v, float a)
-{
-	t_vector	w;
-
-	w.x = a * v.x;
-	w.y = a * v.y;
-	w.z = a * v.z;
 	return (w);
 }

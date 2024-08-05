@@ -1,5 +1,15 @@
 #include "../../headers/vector.h"
 
+t_vector	vec_mult(t_vector v, float a)
+{
+	t_vector	w;
+
+	w.x = a * v.x;
+	w.y = a * v.y;
+	w.z = a * v.z;
+	return (w);
+}
+
 t_vector	vec_div(t_vector v, float a)
 {
 	t_vector	w;
