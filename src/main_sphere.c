@@ -2,8 +2,21 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-t_vector get_color(t_ray ray)
+int hit_sphere(t_vector center, float radius, t_ray ray)
 {
+    t_vector oc = vec_sub(center, ray.start);
+    float a = dot_prod(ray.direction, ray.direction);
+    float b = -2.0 * dot_prod(ray.direction, oc);
+    float c = dot_prod(oc, oc) - radius * radius;
+    float discriminant = b*b - 4*a*c;
+    return (discriminant >= 0); 
+}
+
+t_vector ray_color(t_ray ray)
+{
+    if (hit_sphere((t_vector){0, 0, -1}, 0.5, ray))
+        return ((t_vector){255.0, 0, 0});
+
     t_vector first = {255.0, 255.0, 255.0};
     t_vector second = {0.0, 0.0, 255.0};
 
@@ -80,7 +93,7 @@ int main()
             pixel_center = vec_add(pixel_center, vec_mult(pixel_delta_v, y));
             t_vector ray_direction = vec_sub(pixel_center, camera_center);
             t_ray ray = init_ray(camera_center, ray_direction);
-            color = get_color(ray);
+            color = ray_color(ray);
             rgba = get_rgba(color.x, color.y, color.z, 255);
             set_px_col(img, x, y, rgba);
             x++;
