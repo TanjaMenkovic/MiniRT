@@ -16,7 +16,7 @@ t_vector	vec_div(t_vector v, float a)
 
 	if (a == 0)
 	{
-		printf("Can't divide with neg number!\n");
+		printf("Can't divide with zero!\n");
 		exit(1);
 	}
 	w.x = v.x / a;
