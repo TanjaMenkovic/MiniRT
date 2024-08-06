@@ -14,6 +14,6 @@ typedef struct s_ray
 }	t_ray;
 
 t_ray   init_ray(t_vector s, t_vector d);
-t_vector   ray_point(t_ray r);
+t_vector   ray_point(t_ray r, float t);
 
 #endif

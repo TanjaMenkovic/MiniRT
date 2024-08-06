@@ -4,12 +4,12 @@
 
 t_vector get_color(t_ray ray)
 {
-    t_vector first = {255.0, 255.0, 255.0};
-    t_vector second = {0.0, 0.0, 255.0};
+    t_vector white = {255.0, 255.0, 255.0};
+    t_vector blue = {0.0, 0.0, 255.0};
 
     t_vector unit_direction = unit_vector(ray.direction);
     float a = 0.5 * (unit_direction.y + 1.0);
-    return (vec_add(vec_mult(first ,(1.0 - a)), vec_mult(second, a)));
+    return (vec_add(vec_mult(white ,(1.0 - a)), vec_mult(blue, a)));
 }
 
 void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color)

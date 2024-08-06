@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <math.h>
 
 /* A 0.2 255,255,255 */
 typedef struct s_amb

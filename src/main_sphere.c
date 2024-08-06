@@ -2,27 +2,36 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
-int hit_sphere(t_vector center, float radius, t_ray ray)
+float hit_sphere(t_vector center, float radius, t_ray ray)
 {
     t_vector oc = vec_sub(center, ray.start);
     float a = dot_prod(ray.direction, ray.direction);
     float b = -2.0 * dot_prod(ray.direction, oc);
     float c = dot_prod(oc, oc) - radius * radius;
     float discriminant = b*b - 4*a*c;
-    return (discriminant >= 0); 
+
+    if (discriminant < 0)
+        return (-1.0);
+    return ((-b - sqrtf(discriminant)) / (2.0 * a));
 }
 
 t_vector ray_color(t_ray ray)
 {
-    if (hit_sphere((t_vector){0, 0, -1}, 0.5, ray))
-        return ((t_vector){255.0, 0, 0});
+    t_vector N;
 
-    t_vector first = {255.0, 255.0, 255.0};
-    t_vector second = {0.0, 0.0, 255.0};
+    float t = hit_sphere((t_vector){0, 0, -1}, 0.5, ray);
+    if (t > 0.0)
+    {
+        N = unit_vector(vec_sub(ray_point(ray, t), (t_vector){0, 0, -1}));
+        return ((t_vector){127.5*(N.x + 1.0), 127.5*(N.y + 1.0), 127.5*(N.z + 1.0)});
+    }
+
+    t_vector white = {255.0, 255.0, 255.0};
+    t_vector blue = {0.0, 0.0, 255.0};
 
     t_vector unit_direction = unit_vector(ray.direction);
     float a = 0.5 * (unit_direction.y + 1.0);
-    return (vec_add(vec_mult(first ,(1.0 - a)), vec_mult(second, a)));
+    return (vec_add(vec_mult(white ,(1.0 - a)), vec_mult(blue, a)));
 }
 
 void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color)
@@ -44,8 +53,6 @@ int get_rgba(int r, int g, int b, int a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// for a disk:
-// s = abs(x^2 + y^2)
 int main()
 {
     mlx_t *mlx;

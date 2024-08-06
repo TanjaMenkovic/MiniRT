@@ -10,7 +10,7 @@ t_ray   init_ray(t_vector s, t_vector d)
     return (r);
 }
 
-t_vector   ray_point(t_ray r)
+t_vector   ray_point(t_ray r, float t)
 {
-    return (vec_add(r.start, vec_mult(r.direction, r.t)));
+    return (vec_add(r.start, vec_mult(r.direction, t)));
 }
