@@ -9,7 +9,7 @@ float	vec_len(t_vector v)
 {
 	float	l;
 
-	l = sqrt(v.x * v.x + v.y * v.y + v.z + v.z);
+	l = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (l);
 }
 

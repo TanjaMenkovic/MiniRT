@@ -4,8 +4,8 @@
 
 t_vector get_color(t_ray ray)
 {
-    t_vector first = {1.0, 1.0, 1.0};
-    t_vector second = {0.5, 0.7, 1.0};
+    t_vector first = {255.0, 255.0, 255.0};
+    t_vector second = {0.0, 0.0, 255.0};
 
     t_vector unit_direction = unit_vector(ray.direction);
     float a = 0.5 * (unit_direction.y + 1.0);
@@ -76,15 +76,14 @@ int main()
         x = 0;
         while (x < WIDTH)
         {
-            x++;
             t_vector pixel_center = vec_add(pixel00_loc, vec_mult(pixel_delta_u, x));
             pixel_center = vec_add(pixel_center, vec_mult(pixel_delta_v, y));
             t_vector ray_direction = vec_sub(pixel_center, camera_center);
-            // ray(vec3 origin, vec3 direction);
-            t_ray ray = {camera_center, ray_direction, 0};
+            t_ray ray = init_ray(camera_center, ray_direction);
             color = get_color(ray);
             rgba = get_rgba(color.x, color.y, color.z, 255);
             set_px_col(img, x, y, rgba);
+            x++;
         }
         y++;
     }
