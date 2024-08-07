@@ -1,8 +1,5 @@
 #include "../../headers/minirt.h"
 
-/*
-check if I want to make it as an array, or I want to make it as list.
-*/
 int    parse_sphere(char **line, t_rt *rt, int id)
 {
     t_sphere    sp;

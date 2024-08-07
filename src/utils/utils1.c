@@ -33,6 +33,9 @@ int is_color(char **str)
     return (1);
 }
 
+/*
+delete later, only for testing
+*/
 void    print_doublearr(char **arr)
 {
     int i;
@@ -40,11 +43,9 @@ void    print_doublearr(char **arr)
     i = 0;
     if (!arr || !arr[0])
         return ;
-    printf("---------------------\nprinting array:\n");
     while (arr[i])
     {
         printf("%s\n", arr[i]);
         i++;
     }
-    printf("---------------------\n");
 }

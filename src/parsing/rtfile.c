@@ -1,21 +1,9 @@
 #include "../../headers/minirt.h"
 
-/* 
-we need to see how actually this .rt file looks
-and can it have also some random lines in it, or everything 
-needs to be properly written.  
-also can we have empty lines or not and so on.
-we should use getnextline to read each line and based on line 
-parse it.
-we need to check if we need another split for first splitting it
-based on white spaces, or it can be splited only based on space.
-*/
-
 /*
 parsing functions are returning 1 in case nothing fails, and 0 if 
 there are some errors
 */
-
 void init_index(t_index *j)
 {
     j->c = 0;
@@ -65,8 +53,6 @@ static int  check_mandatory(t_rt *rt)
     return (1);
 }
 
-/* fix splitset and test again, if it is still seg faulitng, test parsing everything!
-init is tested and should be fine. maybe some extra allocation is needed */
 int    parse_rt(t_rt *rt, int fd, t_index *j)
 {
     char    **line;

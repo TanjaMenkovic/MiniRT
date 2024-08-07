@@ -65,8 +65,6 @@ int is_float(char *str)
 
 /* 
 atoi for float 
-
-check this!!!
 */
 float	ft_atof(char *str)
 {

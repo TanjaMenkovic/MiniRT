@@ -6,7 +6,6 @@ int    parse_amb(char **line, t_rt *rt)
     int     i;
 
     i = 0;
-    printf("parse amb\n");
     if (rt->a.id != 0)
     {
         error_msg("there can be only 1 ambient lighting in .rt file!\n", 0);

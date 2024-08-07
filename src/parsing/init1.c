@@ -38,8 +38,6 @@ void    init_sphere(t_rt *rt)
     rt->sp = (t_sphere *)malloc(sizeof(t_sphere) * rt->num_sp);
     if (!(rt->sp))
         malloc_error();
-    // if (rt->num_sp == 0)
-    //     rt->sp = NULL;
     while (i < rt->num_sp)
     {
         rt->sp[i].id = 0;
@@ -58,8 +56,6 @@ void    init_plane(t_rt *rt)
     rt->pl = (t_plane *)malloc(sizeof(t_plane) * rt->num_pl);
     if (!(rt->pl))
         malloc_error();
-    // if (rt->num_pl == 0)
-    //     rt->pl = NULL;
     while (i < rt->num_pl)
     {
         rt->pl[i].id = 0;
@@ -78,8 +74,6 @@ void    init_cylinder(t_rt *rt)
     rt->cy = (t_cylinder *)malloc(sizeof(t_cylinder) * rt->num_cy);
     if (!(rt->cy))
         malloc_error();
-    // if (rt->num_cy == 0)
-    //     rt->cy = NULL;
     while (i < rt->num_cy)
     {
         rt->cy[i].id = 0;
