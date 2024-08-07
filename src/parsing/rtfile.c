@@ -42,7 +42,6 @@ static  void    parse_line(char **line, t_rt *rt, t_index *j, int *i)
         *i = 0;
         error_msg("incorrect value in .rt file!\n", "Correct starting with: A/C/L/sp/pl/cy");
     }
-    printf("Parsing line: %s\n", line[0]);
 }
 
 /* checking if we have ambient lighting, camera and light in our file */
@@ -77,27 +76,20 @@ int    parse_rt(t_rt *rt, int fd, t_index *j)
     while ((str = get_next_line(fd)) != NULL)
     {
         i = 1;
-        printf("Read line: %s_______endofline\n", str);
         line = ft_splitset(str, " \n\t\r\v");
         free(str);
-        // printf("rl1\n");
-        print_doublearr(line);
         if (!line)
             i = 0;
         else if (line)
             parse_line(line, rt, j, &i);
-        //printf("rl2\n");
         free_arr(line);
         if (i == 0)
         {
             close (fd);
             return (0);
         }
-        printf("rl3\n");
     }
-    printf("rl4\n");
     if (check_mandatory(rt) == 0)
         return (0);
-    printf("rl5\n");
     return (1);
 }

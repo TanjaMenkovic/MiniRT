@@ -9,28 +9,22 @@ int    parse_sphere(char **line, t_rt *rt, int id)
     int         i;
 
     i = 0;
-    printf("sp1\n");
     if (numofel(line, 4) == 0)
         return (0);
-    printf("sp2\n");
     while (line && line[++i])
     {
-        printf("sp3\n");
         if (i == 1 && parse_vector(line[i], &sp.center) == 0)
             return (0);
-        if (i == 2 && parse_ratio(line[i], &sp.radius) == 0)
+        if (i == 2 && parse_float(line[i], &sp.radius) == 0)
             return (0);
         if (i == 3 && parse_color(line[i], &sp.col) == 0)
             return (0);
-        printf("sp4\n");
     }
-    printf("sp5\n");
     sp.id = id;
     if (id < rt->num_sp)
         rt->sp[id] = sp;
     else
         return (0);
-    printf("sp6\n");
     return (1);
 }
 

@@ -34,13 +34,9 @@ static void    count_str(t_rt *rt, t_index *j, int fd)
 void    init_rt(t_rt *rt, t_index *j, char **argv)
 {
     int fd;
-    printf("init:\n");
     fd = open_file(argv[1]);
-    printf("in1\n");
     count_str(rt, j, fd);
-    printf("in2\n");
     close (fd);
-    printf("in3\n");
     // rt->sp = (t_sphere *)malloc(sizeof(t_sphere) * rt->num_sp);
     // rt->cy = (t_cylinder *)malloc(sizeof(t_cylinder) * rt->num_cy);
     // rt->pl = (t_plane *)malloc(sizeof(t_plane) * rt->num_pl);
@@ -52,15 +48,9 @@ void    init_rt(t_rt *rt, t_index *j, char **argv)
     //     malloc_error();
     // }
     init_amb(rt);
-    printf("in4\n");
     init_camera(rt);
-    printf("in5\n");
     init_light(rt);
-    printf("in6\n");
     init_sphere(rt);
-    printf("in7\n");
     init_plane(rt);
-    printf("in8\n");
     init_cylinder(rt);
-    printf("in9\n");
 }

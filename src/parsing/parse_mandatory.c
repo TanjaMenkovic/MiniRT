@@ -60,33 +60,23 @@ int    parse_light(char **line, t_rt *rt)
     int     i;
 
     i = 0;
-    printf("parse light\n");
-    printf("pl1\n");
     if (rt->l.id != 0)
     {
         error_msg("there can be only 1 light in .rt file!\n", 0);
         return (0);
     }
-    printf("pl2\n");
     if (numofel(line, 4) == 0)
         return (0);
-    printf("pl3\n");
     while (line && line[++i])
     {
-        printf("bla\n");
         if (i == 1 && parse_vector(line[1], &l.point) == 0)
             return (0);
-        break;
-        printf("bla1\n");
         if (i == 2 && parse_float(line[2], &l.bright) == 0)
             return (0);
-        printf("bla2\n");
         if (i == 3 && parse_color(line[3], &l.col) == 0)
             return (0);
     }
-    printf("pl4\n");
     l.id = 1;
     rt->l = l;
-    printf("pl5\n");
     return (1);
 }
