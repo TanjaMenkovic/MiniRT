@@ -23,7 +23,8 @@ t_vector ray_color(t_ray ray)
     if (t > 0.0)
     {
         N = unit_vector(vec_sub(ray_point(ray, t), (t_vector){0, 0, -1}));
-        return ((t_vector){127.5*(N.x + 1.0), 127.5*(N.y + 1.0), 127.5*(N.z + 1.0)});
+        float angle = dot_prod(N, ray.direction);
+        return ((t_vector){0.0, fabs(angle) * 255.0, 0.0});
     }
 
     t_vector white = {255.0, 255.0, 255.0};
