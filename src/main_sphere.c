@@ -18,8 +18,15 @@ float hit_sphere(t_vector center, float radius, t_ray ray)
 t_vector ray_color(t_ray ray)
 {
     t_vector N;
+    float   t;
+    float   t_temp;
+    int     i;
 
-    float t = hit_sphere((t_vector){0, 0, -1}, 0.5, ray);
+    i = 0;
+    // new struct that has sphere_distance if no hit -1
+    // plane distance if hit, and cylinder distance if hit
+    // compare all and find closest one that we colour
+    float t_temp = hit_sphere((t_vector){0, 0, -1}, 0.5, ray);
     if (t > 0.0)
     {
         N = unit_vector(vec_sub(ray_point(ray, t), (t_vector){0, 0, -1}));

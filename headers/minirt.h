@@ -1,7 +1,7 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-//# include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 # include "errors.h"
 # include "utils.h"
@@ -10,6 +10,9 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <math.h>
+
+# define WIDTH 1280
+# define HEIGHT 720
 
 /* A 0.2 255,255,255 */
 typedef struct s_amb
@@ -69,6 +72,8 @@ typedef struct s_cylinder
 /* infrmations from .rt file */
 typedef struct s_rt
 {
+    mlx_t *mlx;
+    mlx_image_t *img;
     t_amb a;
     t_camera c;
     t_light l;

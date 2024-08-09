@@ -1,6 +1,6 @@
 NAME := miniRT
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS :=
 LIBMLX := ./MLX42
 
 HEADERS := -I ./headers -I $(LIBMLX)/include -I libft/headers
@@ -10,7 +10,7 @@ LIBS_MAC := $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw \
             -L"/opt/homebrew/Cellar/glfw/3.3.9/lib/" -framework Cocoa \
             -framework OpenGL -framework IOKit ./libft/libft.a
 
-COMMON_SRC := src/main.c \
+COMMON_SRC := src/main2.c \
               src/errors/errors.c \
               src/parsing/files.c src/parsing/init.c src/parsing/init1.c src/parsing/parse_mandatory.c \
               src/parsing/parse_objects.c src/parsing/parse_utils.c src/parsing/parse_utils1.c src/parsing/rtfile.c \
@@ -42,7 +42,7 @@ $(NAME): $(COMMON_OBJS)
 	$(CC) $(COMMON_OBJS) $(LIBS_LINUX) -o $(NAME)
 
 $(NAME)_mac: $(COMMON_OBJS)
-	$(CC) $(COMMON_OBJS) $(LIBS_MAC) -o $(NAME)
+	$(CC) $(COMMON_OBJS) $(LIBS_MAC) -fsanitize=address -o $(NAME)
 
 obj/%.o: %.c Makefile
 	@mkdir -p obj

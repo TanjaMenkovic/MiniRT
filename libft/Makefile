@@ -19,7 +19,7 @@ BOBJ_FILES = $(BSRC_FILES:.c=.o)
 NAME = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -fsanitize=address
 
 all: $(NAME)
 

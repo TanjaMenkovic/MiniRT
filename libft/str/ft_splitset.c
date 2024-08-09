@@ -28,7 +28,7 @@ static int		get_words_count(char *str, char *charset)
 	words_count = 0;
 	while (str[i] != '\0')
 	{
-		if (is_word(str[i], str[i - 1], charset) ||
+		if (i > 0 && is_word(str[i], str[i - 1], charset) ||
 			(!is_separator(str[i], charset) && i == 0))
 			words_count++;
 		i++;
@@ -46,7 +46,7 @@ static int		*get_words_size(char *str, char *charset)
 	i = 0;
 	words_count = get_words_count(str, charset);
 	words_size = malloc(words_count * sizeof(int));
-	while (i <= words_count)
+	while (i < words_count)
 	{
 		words_size[i] = 0;
 		i++;
