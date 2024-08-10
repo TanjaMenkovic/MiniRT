@@ -56,8 +56,11 @@ int parse_color(char *str, t_vector *v) // values from [0,255] divided by 255, t
     if (is_color(vec) == 0)
         return (0);
     v->x = (float) ft_atoi(vec[0]) / 255;
+    dprintf(1, "v->x = %f\n", v->x);
     v->y = (float) ft_atoi(vec[1]) / 255;
+    dprintf(1, "v->y = %f\n", v->y);
     v->z = (float) ft_atoi(vec[2]) / 255;
+    dprintf(1, "v->z = %f\n", v->z);
     free_arr(vec);
     return (1);
 }

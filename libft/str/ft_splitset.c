@@ -28,7 +28,7 @@ static int		get_words_count(char *str, char *charset)
 	words_count = 0;
 	while (str[i] != '\0')
 	{
-		if (i > 0 && is_word(str[i], str[i - 1], charset) ||
+		if ((i > 0 && is_word(str[i], str[i - 1], charset)) ||
 			(!is_separator(str[i], charset) && i == 0))
 			words_count++;
 		i++;

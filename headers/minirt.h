@@ -13,6 +13,9 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define ASPECT_RATIO ((float)WIDTH/HEIGHT)
+# define VIEWPORT_H  ((float)2.0)
+# define VIEWPORT_W  ((float)2.0 * ASPECT_RATIO)
 
 /* A 0.2 255,255,255 */
 typedef struct s_amb

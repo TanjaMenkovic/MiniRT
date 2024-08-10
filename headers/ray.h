@@ -13,6 +13,15 @@ typedef struct s_ray
 	float t;
 }	t_ray;
 
+typedef struct s_hit_record
+{
+	t_vector point;
+	t_vector color;
+	t_vector normal;
+	float	 t;
+
+}	t_hit_record;
+
 t_ray   init_ray(t_vector s, t_vector d);
 t_vector   ray_point(t_ray r, float t);
 
