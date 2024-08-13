@@ -42,7 +42,7 @@ $(NAME): $(COMMON_OBJS)
 	$(CC) $(COMMON_OBJS) $(LIBS_LINUX) -o $(NAME)
 
 $(NAME)_mac: $(COMMON_OBJS)
-	$(CC) $(COMMON_OBJS) $(LIBS_MAC) -fsanitize=address -o $(NAME)
+	$(CC) $(COMMON_OBJS) $(LIBS_MAC) -o $(NAME)
 
 obj/%.o: %.c Makefile
 	@mkdir -p obj

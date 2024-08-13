@@ -109,9 +109,8 @@ t_vector ray_color(t_ray ray, t_rt rt)
     }
     if (h_rec.t > 0.0)
     {
-        // float angle = dot_prod(h_rec.normal, ray.direction);
-        // return (vec_mult(h_rec.color, fabs(angle)));
-        return (h_rec.color);
+
+        return (vec_mult((t_vector){h_rec.normal.x + 1, h_rec.normal.y + 1, h_rec.normal.z + 1}, 127.5));
     }
 
     t_vector white = {255.0, 255.0, 255.0};

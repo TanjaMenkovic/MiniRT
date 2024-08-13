@@ -11,6 +11,8 @@
 # include <errno.h>
 # include <math.h>
 
+
+/* Constants */
 # define WIDTH 1280
 # define HEIGHT 720
 # define ASPECT_RATIO ((float)WIDTH/HEIGHT)
