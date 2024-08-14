@@ -74,6 +74,13 @@ void print_rt(t_rt *rt) {
     }
 }
 
+float   max(float a, float b)
+{
+    if (a > b)
+        return (a);
+    return (b);
+}
+
 float hit_sphere(t_vector center, float radius, t_ray ray)
 {
     t_vector oc = vec_sub(center, ray.start);
@@ -109,9 +116,15 @@ t_vector ray_color(t_ray ray, t_rt rt)
     }
     if (h_rec.t > 0.0)
     {
-        float angle = dot_prod(ray.direction, h_rec.normal);
-        return (vec_mult(h_rec.color, ((fabs(angle)* 0.5))));
-        //return (vec_mult((t_vector){h_rec.normal.x + 1, h_rec.normal.y + 1, h_rec.normal.z + 1}, 127.5));
+        t_vector light_source = {1.0, 0.0, 0.0};
+        t_vector light_color = {1.0, 1.0, 1.0};
+        t_vector lighting = {0.8, 0.8, 0.8};
+
+        float diffuse_strength = max(0.0, dot_prod(light_source, h_rec.normal));
+        t_vector diffuse = vec_mult(light_color, diffuse_strength);
+
+
+        return ((t_vector){h_rec.color.x * diffuse.x, h_rec.color.y * diffuse.y, h_rec.color.z * diffuse.z});
     }
 
     t_vector white = {255.0, 255.0, 255.0};
