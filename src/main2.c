@@ -104,13 +104,14 @@ t_vector ray_color(t_ray ray, t_rt rt)
             h_rec.t = t;
             h_rec.point = ray_point(ray, t);
             h_rec.normal = unit_vector(vec_sub(h_rec.point, rt.sp[i].center));
-            h_rec.color = vec_mult(rt.sp[i].col, 255.0);
+            h_rec.color = vec_mult(rt.sp[i].col, 255);
         }
     }
     if (h_rec.t > 0.0)
     {
-
-        return (vec_mult((t_vector){h_rec.normal.x + 1, h_rec.normal.y + 1, h_rec.normal.z + 1}, 127.5));
+        float angle = dot_prod(ray.direction, h_rec.normal);
+        return (vec_mult(h_rec.color, ((fabs(angle)* 0.5))));
+        //return (vec_mult((t_vector){h_rec.normal.x + 1, h_rec.normal.y + 1, h_rec.normal.z + 1}, 127.5));
     }
 
     t_vector white = {255.0, 255.0, 255.0};
