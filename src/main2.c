@@ -117,10 +117,11 @@ t_vector ray_color(t_ray ray, t_rt rt)
     if (h_rec.t > 0.0)
     {
         t_vector light_source = {1.0, 0.0, 0.0};
+        t_vector light_dir = unit_vector(vec_sub(light_source, h_rec.point));
         t_vector light_color = {1.0, 1.0, 1.0};
-        t_vector lighting = {0.8, 0.8, 0.8};
+        t_vector lighting = {1.0, 1.0, 1.0};
 
-        float diffuse_strength = max(0.0, dot_prod(light_source, h_rec.normal));
+        float diffuse_strength = max(0.0, dot_prod(light_dir, h_rec.normal));
         t_vector diffuse = vec_mult(light_color, diffuse_strength);
 
 
