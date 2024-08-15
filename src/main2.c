@@ -81,6 +81,22 @@ float   max(float a, float b)
     return (b);
 }
 
+/*
+    I = incoming vector
+    N = normal vector, vector perpendicular to hit point
+    I - 2.0 * dot(N, I) * N.
+*/
+t_vector reflect(t_vector I, t_vector N)
+{
+    t_vector norm;
+    t_vector reflection;
+
+    norm = unit_vector(N);
+    reflection = vec_mult(norm, dot_prod(norm, I) * 2.0);
+    reflection = vec_sub(I, reflection);
+    return (reflection);
+}
+
 float hit_sphere(t_vector center, float radius, t_ray ray)
 {
     t_vector oc = vec_sub(center, ray.start);
@@ -116,6 +132,9 @@ t_vector ray_color(t_ray ray, t_rt rt)
     }
     if (h_rec.t > 0.0)
     {
+        // ambient light
+        t_vector ambient = {0.5, 0.5, 0.5};
+        // diffuse light
         t_vector light_source = {1.0, 0.0, 0.0};
         t_vector light_dir = unit_vector(vec_sub(light_source, h_rec.point));
         t_vector light_color = {1.0, 1.0, 1.0};
@@ -124,8 +143,20 @@ t_vector ray_color(t_ray ray, t_rt rt)
         float diffuse_strength = max(0.0, dot_prod(light_dir, h_rec.normal));
         t_vector diffuse = vec_mult(light_color, diffuse_strength);
 
-
-        return ((t_vector){h_rec.color.x * diffuse.x, h_rec.color.y * diffuse.y, h_rec.color.z * diffuse.z});
+        // specular light
+        t_vector view_source = rt.c.or_vec;
+        t_vector reflect_source = unit_vector(reflect(vec_mult(light_source, -1), h_rec.normal));
+        float specularStrength = max(0.0, dot_prod(view_source, reflect_source));
+        specularStrength = powf(specularStrength, 32.0);
+        t_vector specular = vec_mult(light_color, specularStrength);
+        
+        lighting = vec_add(vec_mult(ambient, 0.5), vec_mult(diffuse, 0.5));
+        lighting = vec_add(vec_mult(specular, 0.5), lighting);
+        t_vector colour = {h_rec.color.x * lighting.x, h_rec.color.y * lighting.y, h_rec.color.z * lighting.z};
+        colour.x = fminf(fmaxf(colour.x, 0.0), 255.0);
+        colour.y = fminf(fmaxf(colour.y, 0.0), 255.0);
+        colour.z = fminf(fmaxf(colour.z, 0.0), 255.0);
+        return (colour);
     }
 
     t_vector white = {255.0, 255.0, 255.0};
