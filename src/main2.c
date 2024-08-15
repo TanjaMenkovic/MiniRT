@@ -74,13 +74,6 @@ void print_rt(t_rt *rt) {
     }
 }
 
-float   max(float a, float b)
-{
-    if (a > b)
-        return (a);
-    return (b);
-}
-
 /*
     I = incoming vector
     N = normal vector, vector perpendicular to hit point
@@ -128,29 +121,49 @@ t_vector ray_color(t_ray ray, t_rt rt)
             h_rec.point = ray_point(ray, t);
             h_rec.normal = unit_vector(vec_sub(h_rec.point, rt.sp[i].center));
             h_rec.color = vec_mult(rt.sp[i].col, 255);
+            h_rec.center = rt.sp[i].center;
         }
     }
     if (h_rec.t > 0.0)
     {
         // ambient light
         t_vector ambient = {0.5, 0.5, 0.5};
-        // diffuse light
-        t_vector light_source = {1.0, 0.0, 0.0};
+
+        t_ray shadow_ray;
+        t_vector light_source = {3.0, 0.0, -1.0};
         t_vector light_dir = unit_vector(vec_sub(light_source, h_rec.point));
+
+        shadow_ray.start = h_rec.point;
+        shadow_ray.direction = light_dir;
+        int in_shadow = -1;
+        i = -1;
+        while (++i < rt.num_sp)
+        {
+            if (hit_sphere(rt.sp[i].center, rt.sp[i].radius, shadow_ray) > 0.0)
+            {
+                if (rt.sp[i].center.x == h_rec.center.x && rt.sp[i].center.y == h_rec.center.y && rt.sp[i].center.z == h_rec.center.z)
+                    continue ;
+                in_shadow = 1;
+                break ;
+            }
+        }
+        if (in_shadow == 1)
+            return (vec_mult(h_rec.color, 0.4));
+        // diffuse light
         t_vector light_color = {1.0, 1.0, 1.0};
         t_vector lighting = {1.0, 1.0, 1.0};
 
-        float diffuse_strength = max(0.0, dot_prod(light_dir, h_rec.normal));
+        float diffuse_strength = fmaxf(0.0, dot_prod(light_dir, h_rec.normal));
         t_vector diffuse = vec_mult(light_color, diffuse_strength);
 
         // specular light
         t_vector view_source = rt.c.or_vec;
         t_vector reflect_source = unit_vector(reflect(vec_mult(light_source, -1), h_rec.normal));
-        float specularStrength = max(0.0, dot_prod(view_source, reflect_source));
+        float specularStrength = fmaxf(0.0, dot_prod(view_source, reflect_source));
         specularStrength = powf(specularStrength, 32.0);
         t_vector specular = vec_mult(light_color, specularStrength);
         
-        lighting = vec_add(vec_mult(ambient, 0.5), vec_mult(diffuse, 0.5));
+        lighting = vec_add(vec_mult(ambient, 1.0), vec_mult(diffuse, 0.5));
         lighting = vec_add(vec_mult(specular, 0.5), lighting);
         t_vector colour = {h_rec.color.x * lighting.x, h_rec.color.y * lighting.y, h_rec.color.z * lighting.z};
         colour.x = fminf(fmaxf(colour.x, 0.0), 255.0);
@@ -229,7 +242,7 @@ int main(int argc, char **argv)
     int x;
     int y;
     
-    rt.mlx = mlx_init(WIDTH, HEIGHT, "SPHERE", false);
+    rt.mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", false);
     rt.img = mlx_new_image(rt.mlx, WIDTH, HEIGHT);
     mlx_image_to_window(rt.mlx, rt.img, 0, 0);
 
