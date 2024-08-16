@@ -103,25 +103,53 @@ float hit_sphere(t_vector center, float radius, t_ray ray)
     return ((-b - sqrtf(discriminant)) / (2.0 * a));
 }
 
+// float hit_plane()
+// {
+
+// }
+
 t_vector ray_color(t_ray ray, t_rt rt)
 {
     t_vector N;
     t_hit_record h_rec;
     float   t;
     int     i;
+    float   denom;
 
     h_rec.t = -1;
     i = -1;
     while (++i < rt.num_sp)
     {
         t = hit_sphere(rt.sp[i].center, rt.sp[i].radius, ray);
-        if (i == 0 || (t > 0.0 && (h_rec.t < 0.0 || t < h_rec.t)))
+        if (i == 0 || t > 0.0 && (h_rec.t < 0.0 || t < h_rec.t))
         {
             h_rec.t = t;
             h_rec.point = ray_point(ray, t);
             h_rec.normal = unit_vector(vec_sub(h_rec.point, rt.sp[i].center));
             h_rec.color = vec_mult(rt.sp[i].col, 255);
             h_rec.center = rt.sp[i].center;
+            h_rec.id = i;
+        }
+    }
+    i = -1;
+    while (++i < rt.num_pl)
+    {
+        denom = dot_prod(rt.pl[i].normal, ray.direction);
+        //printf("abs(denom) = %f\n", denom);
+        if (fabs(denom) > 0.0001f)
+        {
+            // float t = (center - ray.origin).dot(normal) / denom;
+            t = (dot_prod(vec_sub(rt.pl[i].point, ray.start), rt.pl[i].normal)) / denom;
+            printf("t = %f, i == %d\n", t, i);
+            if ((i == 0 && rt.num_sp == 0) || (t > 0.0 && (h_rec.t < 0.0 || t < h_rec.t)))
+            {
+                h_rec.t = t;
+                h_rec.point = ray_point(ray, t);
+                h_rec.normal = rt.pl[i].normal;
+                h_rec.color = vec_mult(rt.pl[i].col, 255);
+                h_rec.center = rt.pl[i].point;
+                h_rec.id = i;  
+            }
         }
     }
     if (h_rec.t > 0.0)
@@ -139,10 +167,8 @@ t_vector ray_color(t_ray ray, t_rt rt)
         i = -1;
         while (++i < rt.num_sp)
         {
-            if (hit_sphere(rt.sp[i].center, rt.sp[i].radius, shadow_ray) > 0.0)
+            if (i != h_rec.id && hit_sphere(rt.sp[i].center, rt.sp[i].radius, shadow_ray) > 0.0)
             {
-                if (rt.sp[i].center.x == h_rec.center.x && rt.sp[i].center.y == h_rec.center.y && rt.sp[i].center.z == h_rec.center.z)
-                    continue ;
                 in_shadow = 1;
                 break ;
             }
@@ -163,7 +189,7 @@ t_vector ray_color(t_ray ray, t_rt rt)
         specularStrength = powf(specularStrength, 32.0);
         t_vector specular = vec_mult(light_color, specularStrength);
         
-        lighting = vec_add(vec_mult(ambient, 1.0), vec_mult(diffuse, 0.5));
+        lighting = vec_add(vec_mult(ambient, 0.8), vec_mult(diffuse, 0.5));
         lighting = vec_add(vec_mult(specular, 0.5), lighting);
         t_vector colour = {h_rec.color.x * lighting.x, h_rec.color.y * lighting.y, h_rec.color.z * lighting.z};
         colour.x = fminf(fmaxf(colour.x, 0.0), 255.0);
@@ -172,12 +198,12 @@ t_vector ray_color(t_ray ray, t_rt rt)
         return (colour);
     }
 
-    t_vector white = {255.0, 255.0, 255.0};
-    t_vector blue = {0.0, 0.0, 255.0};
+    // t_vector white = {255.0, 255.0, 255.0};
+    // t_vector blue = {0.0, 0.0, 255.0};
 
-    t_vector unit_direction = unit_vector(ray.direction);
-    float a = 0.5 * (unit_direction.y + 1.0);
-    return (vec_add(vec_mult(white ,(1.0 - a)), vec_mult(blue, a)));
+    // t_vector unit_direction = unit_vector(ray.direction);
+    // float a = 0.5 * (unit_direction.y + 1.0);
+    return ((t_vector){255, 255, 255});
 }
 
 void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color)

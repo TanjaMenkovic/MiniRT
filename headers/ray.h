@@ -15,10 +15,11 @@ typedef struct s_ray
 
 typedef struct s_hit_record
 {
-	t_vector point;
-	t_vector color;
-	t_vector normal;
-	t_vector center;
+	t_vector	point;
+	t_vector	color;
+	t_vector	normal;
+	t_vector	center;
+	int			id;	
 	float	 t;
 
 }	t_hit_record;
