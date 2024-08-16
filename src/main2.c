@@ -103,10 +103,22 @@ float hit_sphere(t_vector center, float radius, t_ray ray)
     return ((-b - sqrtf(discriminant)) / (2.0 * a));
 }
 
-// float hit_plane()
-// {
+// denom = dot_prod(rt.pl[i].normal, ray.direction);
+        // if (fabs(denom) > 0.0001f)
+        // float t = (center - ray.origin).dot(normal) / denom;
+        // t = (dot_prod(vec_sub(rt.pl[i].point, ray.start), rt.pl[i].normal)) / denom;
 
-// }
+float hit_plane(t_vector normal, t_vector point, t_ray ray)
+{
+    float denom;
+
+    denom = dot_prod(normal, ray.direction);
+    if (fabs(denom) > 0.0001f)
+    {
+        return (dot_prod(vec_sub(point, ray.start), normal) / denom);
+    }
+    return (-1.0);
+}
 
 t_vector ray_color(t_ray ray, t_rt rt)
 {
@@ -114,7 +126,6 @@ t_vector ray_color(t_ray ray, t_rt rt)
     t_hit_record h_rec;
     float   t;
     int     i;
-    float   denom;
 
     h_rec.t = -1;
     i = -1;
@@ -129,37 +140,29 @@ t_vector ray_color(t_ray ray, t_rt rt)
             h_rec.color = vec_mult(rt.sp[i].col, 255);
             h_rec.center = rt.sp[i].center;
             h_rec.id = i;
+            h_rec.shape = 0;
         }
     }
     i = -1;
     while (++i < rt.num_pl)
     {
-        denom = dot_prod(rt.pl[i].normal, ray.direction);
-        //printf("abs(denom) = %f\n", denom);
-        if (fabs(denom) > 0.0001f)
+        t = hit_plane(rt.pl[i].normal, rt.pl[i].point, ray);
+        if ((i == 0 && rt.num_sp == 0) || (t > 0.0 && (h_rec.t < 0.0 || t < h_rec.t)))
         {
-            // float t = (center - ray.origin).dot(normal) / denom;
-            t = (dot_prod(vec_sub(rt.pl[i].point, ray.start), rt.pl[i].normal)) / denom;
-            printf("t = %f, i == %d\n", t, i);
-            if ((i == 0 && rt.num_sp == 0) || (t > 0.0 && (h_rec.t < 0.0 || t < h_rec.t)))
-            {
-                h_rec.t = t;
-                h_rec.point = ray_point(ray, t);
-                h_rec.normal = rt.pl[i].normal;
-                h_rec.color = vec_mult(rt.pl[i].col, 255);
-                h_rec.center = rt.pl[i].point;
-                h_rec.id = i;  
-            }
+            h_rec.t = t;
+            h_rec.point = ray_point(ray, t);
+            h_rec.normal = rt.pl[i].normal;
+            h_rec.color = vec_mult(rt.pl[i].col, 255);
+            h_rec.center = rt.pl[i].point;
+            h_rec.id = i;
+            h_rec.shape = 1;
         }
     }
     if (h_rec.t > 0.0)
     {
         // ambient light
-        t_vector ambient = {0.5, 0.5, 0.5};
-
         t_ray shadow_ray;
-        t_vector light_source = {3.0, 0.0, -1.0};
-        t_vector light_dir = unit_vector(vec_sub(light_source, h_rec.point));
+        t_vector light_dir = unit_vector(vec_sub(rt.l.point, h_rec.point));
 
         shadow_ray.start = h_rec.point;
         shadow_ray.direction = light_dir;
@@ -167,12 +170,25 @@ t_vector ray_color(t_ray ray, t_rt rt)
         i = -1;
         while (++i < rt.num_sp)
         {
-            if (i != h_rec.id && hit_sphere(rt.sp[i].center, rt.sp[i].radius, shadow_ray) > 0.0)
+            if (hit_sphere(rt.sp[i].center, rt.sp[i].radius, shadow_ray) > 0.0)
             {
+                if (h_rec.shape == 0 && h_rec.id == i)
+                    continue ;
                 in_shadow = 1;
                 break ;
             }
         }
+        // i = -1;
+        // while (++i < rt.num_pl)
+        // {
+        //     if (hit_plane(rt.pl[i].normal, rt.pl[i].point, shadow_ray) > 0.0)
+        //     {
+        //         if (h_rec.shape == 1 && h_rec.id == i)
+        //             continue ;
+        //         in_shadow = 1;
+        //         break ;
+        //     }
+        // }
         if (in_shadow == 1)
             return (vec_mult(h_rec.color, 0.4));
         // diffuse light
@@ -183,13 +199,13 @@ t_vector ray_color(t_ray ray, t_rt rt)
         t_vector diffuse = vec_mult(light_color, diffuse_strength);
 
         // specular light
-        t_vector view_source = rt.c.or_vec;
-        t_vector reflect_source = unit_vector(reflect(vec_mult(light_source, -1), h_rec.normal));
-        float specularStrength = fmaxf(0.0, dot_prod(view_source, reflect_source));
+        // t_vector view_source = rt.c.or_vec;
+        t_vector reflect_source = unit_vector(reflect(vec_mult(rt.l.point, -1), h_rec.normal));
+        float specularStrength = fmaxf(0.0, dot_prod(rt.c.or_vec, reflect_source));
         specularStrength = powf(specularStrength, 32.0);
         t_vector specular = vec_mult(light_color, specularStrength);
         
-        lighting = vec_add(vec_mult(ambient, 0.8), vec_mult(diffuse, 0.5));
+        lighting = vec_add(vec_mult((t_vector){rt.a.ratio, rt.a.ratio, rt.a.ratio}, 0.8), vec_mult(diffuse, 0.5));
         lighting = vec_add(vec_mult(specular, 0.5), lighting);
         t_vector colour = {h_rec.color.x * lighting.x, h_rec.color.y * lighting.y, h_rec.color.z * lighting.z};
         colour.x = fminf(fmaxf(colour.x, 0.0), 255.0);
@@ -198,11 +214,6 @@ t_vector ray_color(t_ray ray, t_rt rt)
         return (colour);
     }
 
-    // t_vector white = {255.0, 255.0, 255.0};
-    // t_vector blue = {0.0, 0.0, 255.0};
-
-    // t_vector unit_direction = unit_vector(ray.direction);
-    // float a = 0.5 * (unit_direction.y + 1.0);
     return ((t_vector){255, 255, 255});
 }
 

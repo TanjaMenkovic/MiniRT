@@ -13,13 +13,24 @@ typedef struct s_ray
 	float t;
 }	t_ray;
 
+/* HOLDS DATA FOR CLOSEST HIT OBJECT
+
+	point = point where ray hits the object
+	normal = the normal of the hit object
+	color = color of object
+	center = centerpoint for spheres and cylinders or a point that's inside a plane
+	shape = 0 for sphere, 1 for plane, 2 for cylinder
+	id = which position in geometrical object array
+	t = distance from ray origin
+*/
 typedef struct s_hit_record
 {
 	t_vector	point;
 	t_vector	color;
 	t_vector	normal;
 	t_vector	center;
-	int			id;	
+	int			shape;
+	int			id;
 	float	 t;
 
 }	t_hit_record;
