@@ -70,7 +70,7 @@ typedef struct s_cylinder
     t_vector center;
     t_vector normal;
     float radius;
-    float hight;
+    float height;
     t_vector col;
 }   t_cylinder;
 
