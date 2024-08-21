@@ -86,12 +86,14 @@ int main(int argc, char **argv)
     if (parse_rt(&rt, fd, &j) == 0)
     {
         //free everything
+        free_all(&rt);
         close(fd);
         return (1);
     }
 
     print_rt(&rt);
     
+    free_all(&rt);
     close(fd);
     return (0);
 }

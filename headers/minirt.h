@@ -137,4 +137,7 @@ void    init_sphere(t_rt *rt);
 void    init_plane(t_rt *rt);
 void    init_cylinder(t_rt *rt);
 
+/* freeing.c */
+void    free_all(t_rt *rt);
+
 #endif

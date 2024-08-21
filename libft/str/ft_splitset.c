@@ -82,7 +82,7 @@ char	**ft_splitset(char *str, char *charset)
 		if (!is_separator(str[i], charset))
 		{
 			if (i == 0 || is_word(str[i], str[i - 1], charset))
-				words[index] = malloc(words_size[index] * sizeof(char));
+				words[index] = malloc((words_size[index] + 1) * sizeof(char));
 			words[index][j] = str[i];
 			words[index][++j] = '\0';
 		}
@@ -90,5 +90,6 @@ char	**ft_splitset(char *str, char *charset)
 			j = 0;
 	}
 	words[get_words_count(str, charset)] = 0;
+	free(words_size);
 	return (words);
 }
