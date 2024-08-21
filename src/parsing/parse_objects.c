@@ -66,7 +66,7 @@ int    parse_cylinder(char **line, t_rt *rt, int id)
             return (0);
         if (i == 3 && parse_float(line[i], &cy.radius) == 0)
             return (0);
-        if (i == 4 && parse_float(line[i], &cy.hight) == 0)
+        if (i == 4 && parse_float(line[i], &cy.height) == 0)
             return (0);
         if (i == 5 && parse_color(line[i], &cy.col) == 0)
             return (0);

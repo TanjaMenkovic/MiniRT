@@ -80,7 +80,7 @@ void    init_cylinder(t_rt *rt)
         init_vector(&rt->cy[i].center);
         init_vector(&rt->cy[i].normal);
         rt->cy[i].radius = 0.0;
-        rt->cy[i].hight = 0.0;
+        rt->cy[i].height = 0.0;
         init_vector(&rt->cy[i].col);
         i++;
     }
