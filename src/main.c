@@ -69,7 +69,7 @@ void print_rt(t_rt *rt) {
         print_vector("Center", rt->cy[i].center);
         print_vector("Normal", rt->cy[i].normal);
         printf("Radius: %f\n", rt->cy[i].radius);
-        printf("Height: %f\n", rt->cy[i].hight);
+        printf("Height: %f\n", rt->cy[i].height);
         print_vector("Color", rt->cy[i].col);
     }
 }
