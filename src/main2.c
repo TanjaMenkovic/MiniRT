@@ -144,23 +144,20 @@ float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float 
 
     float t_cylinder = -1.0f;
 
-    // Calculate the intersection points in 3D space for valid t1 and t2
-    if (t1 > 0.0f)
-    {
-        t_vector p1 = vec_add(ray.start, vec_mult(ray.direction, t1));
-        float z1 = dot_prod(vec_sub(p1, base_center), axis_dir);
-        if (z1 >= 0.0f && z1 <= height)
-            t_cylinder = t1;
-    }
+    // Calculate the intersection points in 3D space
+    t_vector p1 = vec_add(ray.start, vec_mult(ray.direction, t1));
+    t_vector p2 = vec_add(ray.start, vec_mult(ray.direction, t2));
 
-    if (t_cylinder < 0.0f && t2 > 0.0f) // Only check t2 if t1 was invalid
-    {
-        t_vector p2 = vec_add(ray.start, vec_mult(ray.direction, t2));
-        float z2 = dot_prod(vec_sub(p2, base_center), axis_dir);
-        if (z2 >= 0.0f && z2 <= height)
-            t_cylinder = t2;
-    }
+    // Check if the intersections are within the cylinder's height
+    float z1 = dot_prod(vec_sub(p1, base_center), axis_dir);
+    float z2 = dot_prod(vec_sub(p2, base_center), axis_dir);
 
+    if (t1 > 0 && z1 >= 0.0f && z1 <= height)
+        t_cylinder = t1;
+    else if (t2 > 0 && z2 >= 0.0f && z2 <= height)
+        t_cylinder = t2;
+
+    return (t_cylinder);
     // Check intersection with the caps
     float t_cap_top = -1.0f;
     float t_cap_bottom = -1.0f;
@@ -174,8 +171,8 @@ float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float 
     {
         t_vector point_top = vec_add(ray.start, vec_mult(ray.direction, t_cap_top));
         t_vector vec_top = vec_sub(point_top, top_cap_center);
-        if (dot_prod(vec_top, vec_top) <= radius * radius)
-            t_cylinder = (t_cylinder < 0.0f || t_cap_top < t_cylinder) ? t_cap_top : t_cylinder;
+        if (dot_prod(vec_top, vec_top) > radius * radius)
+            t_cap_top = -1.0f; // Intersection is outside the top cap
     }
 
     // Bottom cap plane
@@ -186,12 +183,23 @@ float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float 
     {
         t_vector point_bottom = vec_add(ray.start, vec_mult(ray.direction, t_cap_bottom));
         t_vector vec_bottom = vec_sub(point_bottom, base_center);
-        if (dot_prod(vec_bottom, vec_bottom) <= radius * radius)
-            t_cylinder = (t_cylinder < 0.0f || t_cap_bottom < t_cylinder) ? t_cap_bottom : t_cylinder;
+        if (dot_prod(vec_bottom, vec_bottom) > radius * radius)
+            t_cap_bottom = -1.0f; // Intersection is outside the bottom cap
     }
 
-    return t_cylinder;
+    // Return the closest valid intersection (if any)
+    float t_final = t_cylinder;
+
+    if (t_final < 0.0f || (t_cap_top > 0.0f && t_cap_top < t_final))
+        t_final = t_cap_top;
+
+    if (t_final < 0.0f || (t_cap_bottom > 0.0f && t_cap_bottom < t_final))
+        t_final = t_cap_bottom;
+
+    return t_final;
 }
+
+
 
 t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir)
 {
@@ -364,7 +372,7 @@ int main(int argc, char **argv)
     
     close(fd);
     // camera
-    float focal_length = 1.0;
+    float focal_length = (WIDTH / 2) / (tanf((rt.c.fov * (PI/180))/2));
     // t_vector camera_center = {0, 0, 0};
 
     // viewport_u
@@ -372,6 +380,7 @@ int main(int argc, char **argv)
     // viewport_v, in our viewport y increases upward, in our graphical window
     // y increases downward, hence -VIEWPORT_H
     t_vector viewport_v = {0, -VIEWPORT_H, 0};
+
     // calculate the horizontal and vertical delta vectors from pixel to pixel.
     t_vector pixel_delta_u = vec_div(viewport_u, WIDTH);
     t_vector pixel_delta_v = vec_div(viewport_v, HEIGHT);

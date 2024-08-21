@@ -18,6 +18,7 @@
 # define ASPECT_RATIO ((float)WIDTH/HEIGHT)
 # define VIEWPORT_H  ((float)2.0)
 # define VIEWPORT_W  ((float)2.0 * ASPECT_RATIO)
+# define PI 3.1415927f
 
 /* A 0.2 255,255,255 */
 typedef struct s_amb
