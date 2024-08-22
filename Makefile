@@ -16,7 +16,9 @@ COMMON_SRC := src/main2.c \
 				src/parsing/parse_objects.c src/parsing/parse_utils.c src/parsing/parse_utils1.c src/parsing/rtfile.c \
 				src/ray/ray.c \
 				src/utils/utils.c src/utils/utils1.c \
-				src/vector/vector.c src/vector/vector1.c src/vector/vector2.c
+				src/vector/vector.c src/vector/vector1.c src/vector/vector2.c \
+				src/figures/color.c src/figures/cylinder.c src/figures/plane.c \
+				src/figures/sphere.c src/figures/utils_figures.c
 
 VPATH := $(sort $(dir $(COMMON_SRC)))
 

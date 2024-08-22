@@ -128,11 +128,11 @@ int        parse_rt(t_rt *rt, int fd, t_index *j);
 
 /* init.c */
 void    init_rt(t_rt *rt, t_index *j, char **argv);
-
-/* init1.c */
 void    init_vector(t_vector *v);
 void    init_amb(t_rt *rt);
 void    init_camera(t_rt *rt);
+
+/* init1.c */
 void    init_light(t_rt *rt);
 void    init_sphere(t_rt *rt);
 void    init_plane(t_rt *rt);
@@ -140,5 +140,23 @@ void    init_cylinder(t_rt *rt);
 
 /* freeing.c */
 void    free_all(t_rt *rt);
+
+/* utils_figures.c */
+t_vector reflect(t_vector I, t_vector N);
+
+/* sphere.c */
+float hit_sphere(t_vector center, float radius, t_ray ray);
+
+/* plane.c */
+float hit_plane(t_vector normal, t_vector point, t_ray ray);
+
+/* cylinder.c */
+float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float height, t_ray ray);
+t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir);
+
+/* color.c */
+t_vector ray_color(t_ray ray, t_rt rt);
+void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
+int get_rgba(int r, int g, int b, int a);
 
 #endif

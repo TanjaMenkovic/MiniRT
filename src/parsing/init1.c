@@ -1,27 +1,5 @@
 #include "../../headers/minirt.h"
 
-void    init_vector(t_vector *v)
-{
-    v->x = 0.0;
-    v->y = 0.0;
-    v->z = 0.0;
-}
-
-void    init_amb(t_rt *rt)
-{
-    rt->a.id = 0;
-    rt->a.ratio = 0;
-    init_vector(&rt->a.col);
-}
-
-void    init_camera(t_rt *rt)
-{
-    rt->c.id = 0;
-    init_vector(&rt->c.point);
-    init_vector(&rt->c.or_vec);
-    rt->c.fov = 0.0;
-}
-
 void    init_light(t_rt *rt)
 {
     rt->l.id = 0;
