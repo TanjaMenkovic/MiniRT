@@ -21,19 +21,36 @@ void    initialize_camera(t_rt *rt)
     t_vector    viewport_u;
     t_vector    viewport_v;
     t_vector    viewport_upper_left;
-    
+    float viewport_width;
+    float viewport_height;
+    t_vector camera_forward;
+    t_vector camera_right;
+    t_vector camera_up;
+
+
     focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
     // viewport_u
-    viewport_u = (t_vector){VIEWPORT_W, 0, 0};
+    // make sure height is at least 1
+    //viewport_width=2×focal_length×tan(horizontal_FOV/2)
+    viewport_width = 2 * focal_length * tanf(rt->c.fov/2);
+    viewport_height = viewport_width/ASPECT_RATIO;
+
+    camera_forward = unit_vector(rt->c.or_vec);
+    camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, camera_forward));
+    camera_up = cross_prod(camera_forward, camera_right);
+
+    viewport_u = vec_mult(camera_right, viewport_width);
+    viewport_v = vec_mult(camera_up, viewport_height);
+
     // viewport_v, in our viewport y increases upward, in our graphical window
     // y increases downward, hence -VIEWPORT_H
-    viewport_v = (t_vector){0, -VIEWPORT_H, 0};
+    //viewport_v = (t_vector){0, -VIEWPORT_H, 0};
 
     // calculate the horizontal and vertical delta vectors from pixel to pixel.
     rt->c.pixel_delta_u = vec_div(viewport_u, WIDTH);
     rt->c.pixel_delta_v = vec_div(viewport_v, HEIGHT);
     // calculate location of upper left pixel.
-    focal = (t_vector){0, 0, focal_length};
+    focal = vec_mult(camera_forward, focal_length);
     viewport_upper_left = vec_sub(rt->c.point, focal);
     viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_u, 2));
     viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_v, 2));
@@ -63,7 +80,11 @@ void    render_scene(t_rt rt)
         {
             t_vector pixel_center = vec_add(rt.c.pixel00_loc, vec_mult(rt.c.pixel_delta_u, x));
             pixel_center = vec_add(pixel_center, vec_mult(rt.c.pixel_delta_v, y));
-            t_vector ray_direction = vec_sub(pixel_center, rt.c.point);
+            t_vector ray_direction = unit_vector(vec_sub(pixel_center, rt.c.point));
+            if (dot_prod(ray_direction, rt.c.or_vec) < 0)
+            {
+                ray_direction = vec_mult(ray_direction, -1.0);
+            }
             t_ray ray = init_ray(rt.c.point, ray_direction);
             color = ray_color(ray, rt);
             rgba = get_rgba(color.x, color.y, color.z, 255);

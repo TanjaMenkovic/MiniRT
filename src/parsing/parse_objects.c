@@ -17,6 +17,7 @@ int    parse_sphere(char **line, t_rt *rt, int id)
         if (i == 3 && parse_color(line[i], &sp.col) == 0)
             return (0);
     }
+    sp.radius /= 2;
     sp.id = id;
     if (id < rt->num_sp)
         rt->sp[id] = sp;
@@ -71,6 +72,7 @@ int    parse_cylinder(char **line, t_rt *rt, int id)
         if (i == 5 && parse_color(line[i], &cy.col) == 0)
             return (0);
     }
+    cy.radius /= 2;
     cy.id = id;
     if (id < rt->num_cy)
         rt->cy[id] = cy;
