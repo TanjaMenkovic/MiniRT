@@ -47,6 +47,10 @@ typedef struct s_light
     t_vector point; //light point
     float bright; //brightness ratio
     t_vector col; //color
+    t_vector light_dir;
+    t_vector light_color;
+    t_vector lighting;
+    t_ray   shadow_ray;
 }   t_light;
 
 /* sp 0,0,20 10 255,0,0 */

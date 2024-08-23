@@ -41,34 +41,19 @@ void    initialize_camera(t_rt *rt)
     rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, viewport_upper_left);
 }
 
-int main(int argc, char **argv)
+void    initialize_mlx(t_rt *rt)
 {
-    t_rt    rt;
-    int     fd;
-    t_index j;
+    rt->mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", false);
+    rt->img = mlx_new_image(rt->mlx, WIDTH, HEIGHT);
+    mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+}
 
-    check_args(argc, argv);
-    init_rt(&rt, &j, argv);
-    fd = open_file(argv[1]);
-    if (parse_rt(&rt, fd, &j) == 0)
-    {
-        //free everything
-        free_all(&rt);
-        close(fd);
-        return (1);
-    }   
-    close(fd);
-
-    initialize_camera(&rt);
-
+void    render_scene(t_rt rt)
+{
     t_vector color;
     int rgba;
     int x;
     int y;
-    
-    rt.mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", false);
-    rt.img = mlx_new_image(rt.mlx, WIDTH, HEIGHT);
-    mlx_image_to_window(rt.mlx, rt.img, 0, 0);
 
     y = 0;
     while (y < HEIGHT)
@@ -79,7 +64,6 @@ int main(int argc, char **argv)
             t_vector pixel_center = vec_add(rt.c.pixel00_loc, vec_mult(rt.c.pixel_delta_u, x));
             pixel_center = vec_add(pixel_center, vec_mult(rt.c.pixel_delta_v, y));
             t_vector ray_direction = vec_sub(pixel_center, rt.c.point);
-            // printf("ray_direction: (%f, %f, %f)\n", ray_direction.x, ray_direction.y, ray_direction.z);
             t_ray ray = init_ray(rt.c.point, ray_direction);
             color = ray_color(ray, rt);
             rgba = get_rgba(color.x, color.y, color.z, 255);
@@ -88,6 +72,31 @@ int main(int argc, char **argv)
         }
         y++;
     }
+}
+
+int main(int argc, char **argv)
+{
+    t_rt    rt;
+    int     fd;
+    t_index j;
+
+    check_args(argc, argv);
+    init_rt(&rt, &j, argv);
+    fd = open_file(argv[1]);
+    // Need to divide diameter by 2 in sphere and cylinder!!!!
+    if (parse_rt(&rt, fd, &j) == 0)
+    {
+        //free everything
+        free_all(&rt);
+        close(fd);
+        return (1);
+    }   
+    close(fd);
+
+    initialize_camera(&rt);
+    initialize_mlx(&rt);
+    render_scene(rt);
+
     mlx_loop(rt.mlx);
     free_all(&rt);
     return (0);
