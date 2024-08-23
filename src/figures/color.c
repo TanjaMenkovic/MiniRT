@@ -85,6 +85,7 @@ t_vector ray_color(t_ray ray, t_rt rt)
         //         break ;
         //     }
         // }
+        
         if (in_shadow == 1)
             return (vec_mult(h_rec.color, 0.4));
         // diffuse light

@@ -34,7 +34,10 @@ typedef struct s_camera
     int id;
     t_vector point; //view_point
     t_vector or_vec; //orientation vector
-    float fov; // Horizontal field of view 
+    float fov; // Horizontal field of view
+    t_vector pixel00_loc;
+    t_vector pixel_delta_u;
+    t_vector pixel_delta_v;
 }   t_camera;
 
 /* L -40.0,50.0,0.0 0.6 10,0,255 */

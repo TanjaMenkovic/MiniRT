@@ -14,6 +14,33 @@ static void check_args(int argc, char **argv)
     }
 }
 
+void    initialize_camera(t_rt *rt)
+{
+    float       focal_length;
+    t_vector    focal;
+    t_vector    viewport_u;
+    t_vector    viewport_v;
+    t_vector    viewport_upper_left;
+    
+    focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
+    // viewport_u
+    viewport_u = (t_vector){VIEWPORT_W, 0, 0};
+    // viewport_v, in our viewport y increases upward, in our graphical window
+    // y increases downward, hence -VIEWPORT_H
+    viewport_v = (t_vector){0, -VIEWPORT_H, 0};
+
+    // calculate the horizontal and vertical delta vectors from pixel to pixel.
+    rt->c.pixel_delta_u = vec_div(viewport_u, WIDTH);
+    rt->c.pixel_delta_v = vec_div(viewport_v, HEIGHT);
+    // calculate location of upper left pixel.
+    focal = (t_vector){0, 0, focal_length};
+    viewport_upper_left = vec_sub(rt->c.point, focal);
+    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_u, 2));
+    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_v, 2));
+    rt->c.pixel00_loc = vec_mult(vec_add(rt->c.pixel_delta_u, rt->c.pixel_delta_v), 0.5);
+    rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, viewport_upper_left);
+}
+
 int main(int argc, char **argv)
 {
     t_rt    rt;
@@ -32,26 +59,7 @@ int main(int argc, char **argv)
     }   
     close(fd);
 
-    // camera
-    float focal_length = (WIDTH / 2) / (tanf((rt.c.fov * (PI/180))/2));
-    // t_vector camera_center = {0, 0, 0};
-
-    // viewport_u
-    t_vector viewport_u = {VIEWPORT_W, 0, 0};
-    // viewport_v, in our viewport y increases upward, in our graphical window
-    // y increases downward, hence -VIEWPORT_H
-    t_vector viewport_v = {0, -VIEWPORT_H, 0};
-
-    // calculate the horizontal and vertical delta vectors from pixel to pixel.
-    t_vector pixel_delta_u = vec_div(viewport_u, WIDTH);
-    t_vector pixel_delta_v = vec_div(viewport_v, HEIGHT);
-    // calculate location of upper left pixel.
-    t_vector focal = {0, 0, focal_length};
-    t_vector viewport_upper_left = vec_sub(rt.c.point, focal);
-    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_u, 2));
-    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_v, 2));
-    t_vector pixel00_loc = vec_mult(vec_add(pixel_delta_u, pixel_delta_v), 0.5);
-    pixel00_loc = vec_add(pixel00_loc, viewport_upper_left);
+    initialize_camera(&rt);
 
     t_vector color;
     int rgba;
@@ -68,9 +76,10 @@ int main(int argc, char **argv)
         x = 0;
         while (x < WIDTH)
         {
-            t_vector pixel_center = vec_add(pixel00_loc, vec_mult(pixel_delta_u, x));
-            pixel_center = vec_add(pixel_center, vec_mult(pixel_delta_v, y));
+            t_vector pixel_center = vec_add(rt.c.pixel00_loc, vec_mult(rt.c.pixel_delta_u, x));
+            pixel_center = vec_add(pixel_center, vec_mult(rt.c.pixel_delta_v, y));
             t_vector ray_direction = vec_sub(pixel_center, rt.c.point);
+            // printf("ray_direction: (%f, %f, %f)\n", ray_direction.x, ray_direction.y, ray_direction.z);
             t_ray ray = init_ray(rt.c.point, ray_direction);
             color = ray_color(ray, rt);
             rgba = get_rgba(color.x, color.y, color.z, 255);
