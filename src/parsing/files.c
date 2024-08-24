@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   files.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 15:56:12 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/24 16:00:14 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minirt.h"
 
 static int	is_rt_file(char *file)
@@ -10,21 +22,20 @@ static int	is_rt_file(char *file)
 	return (0);
 }
 
-int open_file(char *file)
+int	open_file(char *file)
 {
-    int fd;
+	int	fd;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-    {
-        error_msg("file doesn't exist!\n", 0);
-        exit(EXIT_FAILURE);
-    }
-    if (is_rt_file(file) == 0)
-    if (fd < 0)
-    {
-        error_msg("not rt file!\n", 0);
-        exit(EXIT_FAILURE);
-    }
-    return (fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		error_msg("file doesn't exist!\n", 0);
+		exit(EXIT_FAILURE);
+	}
+	if (is_rt_file(file) == 0)
+	{
+		error_msg("not rt file!\n", 0);
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
 }
