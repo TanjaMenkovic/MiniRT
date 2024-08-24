@@ -109,7 +109,7 @@ void    compute_lighting(t_vector *color, t_rt rt, t_hit_record h_rec)
     specular_strength = powf(specular_strength, 32.0);
     specular = vec_mult(rt.l.light_color, specular_strength);
     rt.l.lighting = vec_add(vec_mult((t_vector){rt.a.ratio, rt.a.ratio, rt.a.ratio}, 0.8), vec_mult(diffuse, 0.5));
-    rt.l.lighting = vec_add(vec_mult(specular, 0.5), rt.l.lighting);
+    rt.l.lighting = vec_add(vec_mult(specular, 0.0), rt.l.lighting);
     *color = (t_vector){h_rec.color.x * rt.l.lighting.x, h_rec.color.y * rt.l.lighting.y, h_rec.color.z * rt.l.lighting.z};
     color->x = fminf(fmaxf(color->x, 0.0), 255.0);
     color->y = fminf(fmaxf(color->y, 0.0), 255.0);
