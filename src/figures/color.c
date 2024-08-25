@@ -58,7 +58,7 @@ void    check_cylinders(t_ray ray, t_rt rt, t_hit_record *h_rec)
         {
             h_rec->t = t;
             h_rec->point = ray_point(ray, t);
-            h_rec->normal = cyl_normal(h_rec->point, rt.cy[i].center, rt.cy[i].normal);
+            h_rec->normal = cyl_normal(h_rec->point, rt.cy[i].center, rt.cy[i].normal, rt.cy[i].height, rt.cy[i].radius);
             h_rec->color = vec_mult(rt.cy[i].col, 255);
             h_rec->center = rt.cy[i].center;
             h_rec->id = i;
@@ -85,6 +85,8 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
                 break ;
         }
     }
+    i = -1;
+    while (++i < rt.num)
 }
 
 /*

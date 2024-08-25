@@ -159,7 +159,7 @@ float hit_plane(t_vector normal, t_vector point, t_ray ray);
 
 /* cylinder.c */
 float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float height, t_ray ray);
-t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir);
+t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir, float height, float radius);
 
 /* color.c */
 t_vector ray_color(t_ray ray, t_rt rt);
