@@ -32,7 +32,9 @@ void    initialize_camera(t_rt *rt)
     // viewport_u
     // make sure height is at least 1
     //viewport_width=2×focal_length×tan(horizontal_FOV/2)
-    viewport_width = 2 * focal_length * tanf(rt->c.fov/2);
+
+    // viewport_width = 2 * focal_length * tanf((rt->c.fov * (PI/180))/2);
+    viewport_width = WIDTH*2;
     viewport_height = viewport_width/ASPECT_RATIO;
 
     camera_forward = unit_vector(rt->c.or_vec);

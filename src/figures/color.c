@@ -73,7 +73,7 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
 
     rt.l.shadow_ray.start = h_rec.point;
     rt.l.shadow_ray.direction = rt.l.light_dir;
-    *in_shadow = -1;
+    *in_shadow = 0;
     i = -1;
     while (++i < rt.num_sp)
     {
@@ -81,12 +81,37 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
         {
             if (h_rec.shape == 0 && h_rec.id == i)
                 continue ;
-                *in_shadow = 1;
-                break ;
+            *in_shadow = 1;
+            return ;
         }
     }
     i = -1;
-    while (++i < rt.num)
+    while (++i < rt.num_cy)
+    {
+        if (hit_cylinder(rt.cy[i].center, rt.cy[i].normal, rt.cy[i].radius, rt.cy[i].height, rt.l.shadow_ray) > 0.0)
+        {
+            if (h_rec.shape == 2 && h_rec.id == i)
+                continue ;
+            *in_shadow = 1;
+            return ;
+        }
+    }
+    i = -1;
+    while(++i < rt.num_pl)
+    {
+        float t_hit = hit_plane(rt.pl[i].normal, rt.pl[i].point, rt.l.shadow_ray);
+        if (t_hit > 0.0)
+        {
+            float light_dist = vec_len(rt.l.light_dir);
+            if (t_hit < light_dist)
+            {
+                if (h_rec.shape == 1 && h_rec.id == i)
+                    continue ;
+                *in_shadow = 1;
+                return ;
+            }
+        }
+    }
 }
 
 /*
