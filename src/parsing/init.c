@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:05:19 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/24 16:09:25 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:53:02 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	init_rt(t_rt *rt, t_index *j, char **argv)
 {
 	int	fd;
 
+	rt->width = WIDTH;
+	rt->height = HEIGHT;
 	fd = open_file(argv[1]);
 	count_str(rt, j, fd);
 	close(fd);

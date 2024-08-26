@@ -32,9 +32,8 @@ void    initialize_camera(t_rt *rt)
 {
     t_init_cam i;
 
-    printf("cam 1\n");
-    i.focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
-    i.viewport_width = WIDTH*2;
+    i.focal_length = (rt->width / 2) / (tanf((rt->c.fov * (PI/180))/2));
+    i.viewport_width = rt->width*2;
     i.viewport_height = i.viewport_width/ASPECT_RATIO;
     i.camera_forward = unit_vector(rt->c.or_vec);
     if (vec_len(cross_prod((t_vector){0, 1, 0}, i.camera_forward)) != 0)
@@ -44,8 +43,8 @@ void    initialize_camera(t_rt *rt)
     i.camera_up = cross_prod(i.camera_forward, i.camera_right);
     i.viewport_u = vec_mult(i.camera_right, i.viewport_width);
     i.viewport_v = vec_mult(i.camera_up, i.viewport_height);
-    rt->c.pixel_delta_u = vec_div(i.viewport_u, WIDTH);
-    rt->c.pixel_delta_v = vec_div(i.viewport_v, HEIGHT);
+    rt->c.pixel_delta_u = vec_div(i.viewport_u, rt->width);
+    rt->c.pixel_delta_v = vec_div(i.viewport_v, rt->height);
     i.focal = vec_mult(i.camera_forward, i.focal_length);
     i.viewport_upper_left = vec_sub(rt->c.point, i.focal);
     i.viewport_upper_left = vec_sub(i.viewport_upper_left, vec_div(i.viewport_u, 2));
@@ -54,11 +53,38 @@ void    initialize_camera(t_rt *rt)
     rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, i.viewport_upper_left);
 }
 
+static void	close_hook(void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+}
+
+void    render_scene(t_rt rt);
+
+static void resize_callback(int32_t width, int32_t height, void *param)
+{
+    t_rt *rt;
+    
+    rt = param;
+    rt->width = width;
+    rt->height = height;
+    mlx_delete_image(rt->mlx, rt->img);
+    rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
+    render_scene(*rt);
+    mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+}
+
+
 void    initialize_mlx(t_rt *rt)
 {
-    rt->mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", true);
-    rt->img = mlx_new_image(rt->mlx, WIDTH, HEIGHT);
+    rt->mlx = mlx_init(rt->width, rt->height, "miniRT", true);
+    rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
     mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+    mlx_loop_hook(rt->mlx, &close_hook, rt->mlx);
+    mlx_resize_hook(rt->mlx, &resize_callback, rt);
 }
 
 void    render_scene(t_rt rt)
@@ -69,10 +95,10 @@ void    render_scene(t_rt rt)
     int y;
 
     y = -1;
-    while (++y < HEIGHT)
+    while (++y < rt.height)
     {
         x = -1;
-        while (++x < WIDTH)
+        while (++x < rt.width)
         {
             t_vector pixel_center = vec_add(rt.c.pixel00_loc, vec_mult(rt.c.pixel_delta_u, x));
             pixel_center = vec_add(pixel_center, vec_mult(rt.c.pixel_delta_v, y));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_mandatory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:10:29 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/24 16:18:47 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:56:44 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	parse_camera(char **line, t_rt *rt)
 	int			i;
 
 	i = 0;
-	printf("parse camera\n");
 	if (rt->c.id != 0)
 	{
 		error_msg("there can be only 1 camera in .rt file!\n", 0);

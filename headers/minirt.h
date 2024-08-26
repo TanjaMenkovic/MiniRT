@@ -126,6 +126,8 @@ typedef struct s_rt
     t_sphere *sp;
     t_plane *pl;
     t_cylinder *cy;
+    int width;
+    int height;
     int num_sp;
     int num_pl;
     int num_cy;

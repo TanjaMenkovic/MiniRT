@@ -25,14 +25,6 @@ int parse_vector(char *str, t_vector *v) //any float values
 {
     char    **vec;
 
-    int i = 0;
-    while(1)
-    {
-        printf("%c", str[i]);
-        if (str[i] == 0)
-            break ;
-        i++;
-    }
     vec = ft_split(str, ',');
     if (doublelen(vec) != 3)
     {
