@@ -95,6 +95,26 @@ typedef struct s_cylinder
     t_vector col;
 }   t_cylinder;
 
+
+typedef struct s_cyl_body
+{
+    float t_cylinder;
+    t_vector oc;
+    t_vector oc_perp;
+    t_vector ray_dir_perp;
+    float a;
+    float b;
+    float c;
+    float discriminant;
+    float sqrt_discriminant;
+    float t1;
+    float t2;
+    t_vector p1;
+    t_vector p2;
+    float z1;
+    float z2;
+} t_cyl_body;
+
 /* infrmations from .rt file */
 typedef struct s_rt
 {
