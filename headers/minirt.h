@@ -194,6 +194,10 @@ float hit_plane(t_vector normal, t_vector point, t_ray ray);
 float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float height, t_ray ray);
 t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir, float height, float radius);
 
+/* cone.c */
+t_vector cone_normal(t_vector point, t_vector apex, t_vector axis_dir, float radius, float height, float angle);
+float hit_cone(t_vector apex, t_vector axis_dir, float radius, float height, float angle, t_ray ray);
+
 /* color.c */
 t_vector ray_color(t_ray ray, t_rt rt);
 void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
