@@ -64,19 +64,40 @@ static void	close_hook(void *param)
 
 void    render_scene(t_rt rt);
 
+// static void resize_callback(int32_t width, int32_t height, void *param)
+// {
+//     t_rt *rt;
+    
+//     rt = param;
+//     rt->width = width;
+//     rt->height = height;
+//     mlx_delete_image(rt->mlx, rt->img);
+//     rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
+//     render_scene(*rt);
+//     mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+// }
+
 static void resize_callback(int32_t width, int32_t height, void *param)
 {
     t_rt *rt;
     
     rt = param;
+    
+    // Update the width and height in your structure
     rt->width = width;
     rt->height = height;
-    mlx_delete_image(rt->mlx, rt->img);
-    rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
+    
+    // Resize the existing image instead of deleting and recreating
+    if (mlx_resize_image(rt->img, width, height) != MLX_SUCCESS)
+    {
+        // Handle the error if resizing fails
+        printf("Failed to resize image\n");
+        return;
+    }
+    initialize_camera(rt);
+    // Re-render the scene to the resized image
     render_scene(*rt);
-    mlx_image_to_window(rt->mlx, rt->img, 0, 0);
 }
-
 
 void    initialize_mlx(t_rt *rt)
 {
