@@ -13,87 +13,102 @@ static void check_args(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 }
+/*
+    focal_length = distance from camera to viewport
 
-void print_vector(const char *name, t_vector v) {
-    printf("%s: (%f, %f, %f)\n", name, v.x, v.y, v.z);
+    camera_forward given from the scene rt->c.or_vec
+
+    camera right we get by calculating the cross product of {0, 1, 0} vector
+    and camera_forward.
+
+    camera up is calculated from the crossproduct of camera right and camera forward
+
+    viewport_u = vector of whole width of viewport
+    viewport_v = vector of whole height of viewport
+
+    rt->c.pixel00_loc = our topleft corner pixel on our viewport
+*/
+void    initialize_camera(t_rt *rt)
+{
+    t_init_cam i;
+
+    i.focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
+    i.viewport_width = WIDTH*2;
+    i.viewport_height = i.viewport_width/ASPECT_RATIO;
+    i.camera_forward = unit_vector(rt->c.or_vec);
+    i.camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, i.camera_forward));
+    i.camera_up = cross_prod(i.camera_forward, i.camera_right);
+    i.viewport_u = vec_mult(i.camera_right, i.viewport_width);
+    i.viewport_v = vec_mult(i.camera_up, i.viewport_height);
+    rt->c.pixel_delta_u = vec_div(i.viewport_u, WIDTH);
+    rt->c.pixel_delta_v = vec_div(i.viewport_v, HEIGHT);
+    i.focal = vec_mult(i.camera_forward, i.focal_length);
+    i.viewport_upper_left = vec_sub(rt->c.point, i.focal);
+    i.viewport_upper_left = vec_sub(i.viewport_upper_left, vec_div(i.viewport_u, 2));
+    i.viewport_upper_left = vec_sub(i.viewport_upper_left, vec_div(i.viewport_v, 2));
+    rt->c.pixel00_loc = vec_mult(vec_add(rt->c.pixel_delta_u, rt->c.pixel_delta_v), 0.5);
+    rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, i.viewport_upper_left);
 }
 
-void print_rt(t_rt *rt) {
-    int i;
+void    initialize_mlx(t_rt *rt)
+{
+    rt->mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", true);
+    rt->img = mlx_new_image(rt->mlx, WIDTH, HEIGHT);
+    mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+}
 
-    // Print ambient light
-    printf("Ambient Light:\n");
-    printf("ID: %d\n", rt->a.id);
-    printf("Ratio: %f\n", rt->a.ratio);
-    print_vector("Color", rt->a.col);
+void    render_scene(t_rt rt)
+{
+    t_vector color;
+    int rgba;
+    int x;
+    int y;
 
-    // Print camera
-    printf("\nCamera:\n");
-    printf("ID: %d\n", rt->c.id);
-    print_vector("View Point", rt->c.point);
-    print_vector("Orientation Vector", rt->c.or_vec);
-    printf("FOV: %f\n", rt->c.fov);
-
-    // Print light
-    printf("\nLight:\n");
-    printf("ID: %d\n", rt->l.id);
-    print_vector("Point", rt->l.point);
-    printf("Brightness: %f\n", rt->l.bright);
-    print_vector("Color", rt->l.col);
-
-    // Print spheres
-    printf("\nSpheres: %d\n", rt->num_sp);
-    for (i = 0; i < rt->num_sp; i++) {
-        printf("\nSphere %d:\n", i);
-        printf("ID: %d\n", rt->sp[i].id);
-        print_vector("Center", rt->sp[i].center);
-        printf("Radius: %f\n", rt->sp[i].radius);
-        print_vector("Color", rt->sp[i].col);
-    }
-
-    // Print planes
-    printf("\nPlanes: %d\n", rt->num_pl);
-    for (i = 0; i < rt->num_pl; i++) {
-        printf("\nPlane %d:\n", i);
-        printf("ID: %d\n", rt->pl[i].id);
-        print_vector("Point", rt->pl[i].point);
-        print_vector("Normal", rt->pl[i].normal);
-        print_vector("Color", rt->pl[i].col);
-    }
-
-    // Print cylinders
-    printf("\nCylinders: %d\n", rt->num_cy);
-    for (i = 0; i < rt->num_cy; i++) {
-        printf("\nCylinder %d:\n", i);
-        printf("ID: %d\n", rt->cy[i].id);
-        print_vector("Center", rt->cy[i].center);
-        print_vector("Normal", rt->cy[i].normal);
-        printf("Radius: %f\n", rt->cy[i].radius);
-        printf("Height: %f\n", rt->cy[i].height);
-        print_vector("Color", rt->cy[i].col);
+    y = -1;
+    while (++y < HEIGHT)
+    {
+        x = -1;
+        while (++x < WIDTH)
+        {
+            t_vector pixel_center = vec_add(rt.c.pixel00_loc, vec_mult(rt.c.pixel_delta_u, x));
+            pixel_center = vec_add(pixel_center, vec_mult(rt.c.pixel_delta_v, y));
+            t_vector ray_direction = unit_vector(vec_sub(pixel_center, rt.c.point));
+            if (dot_prod(ray_direction, rt.c.or_vec) < 0)
+            {
+                ray_direction = vec_mult(ray_direction, -1.0);
+            }
+            t_ray ray = init_ray(rt.c.point, ray_direction);
+            color = ray_color(ray, rt);
+            rgba = get_rgba(color.x, color.y, color.z, 255);
+            set_px_col(rt.img, x, y, rgba);
+        }
     }
 }
 
 int main(int argc, char **argv)
 {
     t_rt    rt;
-    int fd;
+    int     fd;
     t_index j;
 
     check_args(argc, argv);
     init_rt(&rt, &j, argv);
     fd = open_file(argv[1]);
+    // Need to divide diameter by 2 in sphere and cylinder!!!!
     if (parse_rt(&rt, fd, &j) == 0)
     {
         //free everything
         free_all(&rt);
         close(fd);
         return (1);
-    }
-
-    print_rt(&rt);
-    
-    free_all(&rt);
+    }   
     close(fd);
+
+    initialize_camera(&rt);
+    initialize_mlx(&rt);
+    render_scene(rt);
+
+    mlx_loop(rt.mlx);
+    free_all(&rt);
     return (0);
 }
