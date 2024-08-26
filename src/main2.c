@@ -13,56 +13,46 @@ static void check_args(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 }
+/*
+    focal_length = distance from camera to viewport
 
+    camera_forward given from the scene rt->c.or_vec
+
+    camera right we get by calculating the cross product of {0, 1, 0} vector
+    and camera_forward.
+
+    camera up is calculated from the crossproduct of camera right and camera forward
+
+    viewport_u = vector of whole width of viewport
+    viewport_v = vector of whole height of viewport
+
+    rt->c.pixel00_loc = our topleft corner pixel on our viewport
+*/
 void    initialize_camera(t_rt *rt)
 {
-    float       focal_length;
-    t_vector    focal;
-    t_vector    viewport_u;
-    t_vector    viewport_v;
-    t_vector    viewport_upper_left;
-    float viewport_width;
-    float viewport_height;
-    t_vector camera_forward;
-    t_vector camera_right;
-    t_vector camera_up;
+    t_init_cam i;
 
-
-    focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
-    // viewport_u
-    // make sure height is at least 1
-    //viewport_width=2×focal_length×tan(horizontal_FOV/2)
-
-    // viewport_width = 2 * focal_length * tanf((rt->c.fov * (PI/180))/2);
-    viewport_width = WIDTH*2;
-    viewport_height = viewport_width/ASPECT_RATIO;
-
-    camera_forward = unit_vector(rt->c.or_vec);
-    camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, camera_forward));
-    camera_up = cross_prod(camera_forward, camera_right);
-
-    viewport_u = vec_mult(camera_right, viewport_width);
-    viewport_v = vec_mult(camera_up, viewport_height);
-
-    // viewport_v, in our viewport y increases upward, in our graphical window
-    // y increases downward, hence -VIEWPORT_H
-    //viewport_v = (t_vector){0, -VIEWPORT_H, 0};
-
-    // calculate the horizontal and vertical delta vectors from pixel to pixel.
-    rt->c.pixel_delta_u = vec_div(viewport_u, WIDTH);
-    rt->c.pixel_delta_v = vec_div(viewport_v, HEIGHT);
-    // calculate location of upper left pixel.
-    focal = vec_mult(camera_forward, focal_length);
-    viewport_upper_left = vec_sub(rt->c.point, focal);
-    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_u, 2));
-    viewport_upper_left = vec_sub(viewport_upper_left, vec_div(viewport_v, 2));
+    i.focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
+    i.viewport_width = WIDTH*2;
+    i.viewport_height = i.viewport_width/ASPECT_RATIO;
+    i.camera_forward = unit_vector(rt->c.or_vec);
+    i.camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, i.camera_forward));
+    i.camera_up = cross_prod(i.camera_forward, i.camera_right);
+    i.viewport_u = vec_mult(i.camera_right, i.viewport_width);
+    i.viewport_v = vec_mult(i.camera_up, i.viewport_height);
+    rt->c.pixel_delta_u = vec_div(i.viewport_u, WIDTH);
+    rt->c.pixel_delta_v = vec_div(i.viewport_v, HEIGHT);
+    i.focal = vec_mult(i.camera_forward, i.focal_length);
+    i.viewport_upper_left = vec_sub(rt->c.point, i.focal);
+    i.viewport_upper_left = vec_sub(i.viewport_upper_left, vec_div(i.viewport_u, 2));
+    i.viewport_upper_left = vec_sub(i.viewport_upper_left, vec_div(i.viewport_v, 2));
     rt->c.pixel00_loc = vec_mult(vec_add(rt->c.pixel_delta_u, rt->c.pixel_delta_v), 0.5);
-    rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, viewport_upper_left);
+    rt->c.pixel00_loc = vec_add(rt->c.pixel00_loc, i.viewport_upper_left);
 }
 
 void    initialize_mlx(t_rt *rt)
 {
-    rt->mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", false);
+    rt->mlx = mlx_init(WIDTH, HEIGHT, "SPHERES", true);
     rt->img = mlx_new_image(rt->mlx, WIDTH, HEIGHT);
     mlx_image_to_window(rt->mlx, rt->img, 0, 0);
 }

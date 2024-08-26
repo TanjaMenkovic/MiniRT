@@ -28,7 +28,20 @@ typedef struct s_amb
     t_vector col;
 }   t_amb;
 
-/* C 0,0,0 0,0,1 70 */
+typedef struct s_init_cam
+{
+    float       focal_length;
+    t_vector    focal;
+    t_vector    viewport_u;
+    t_vector    viewport_v;
+    t_vector    viewport_upper_left;
+    float viewport_width;
+    float viewport_height;
+    t_vector camera_forward;
+    t_vector camera_right;
+    t_vector camera_up;
+}   t_init_cam;
+
 typedef struct s_camera
 {
     int id;
