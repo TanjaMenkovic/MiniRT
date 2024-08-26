@@ -32,11 +32,15 @@ void    initialize_camera(t_rt *rt)
 {
     t_init_cam i;
 
+    printf("cam 1\n");
     i.focal_length = (WIDTH / 2) / (tanf((rt->c.fov * (PI/180))/2));
     i.viewport_width = WIDTH*2;
     i.viewport_height = i.viewport_width/ASPECT_RATIO;
     i.camera_forward = unit_vector(rt->c.or_vec);
-    i.camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, i.camera_forward));
+    if (vec_len(cross_prod((t_vector){0, 1, 0}, i.camera_forward)) != 0)
+        i.camera_right = unit_vector(cross_prod((t_vector){0, 1, 0}, i.camera_forward));
+    else
+        i.camera_right = unit_vector(cross_prod((t_vector){0, 1, -0.00001}, i.camera_forward));
     i.camera_up = cross_prod(i.camera_forward, i.camera_right);
     i.viewport_u = vec_mult(i.camera_right, i.viewport_width);
     i.viewport_v = vec_mult(i.camera_up, i.viewport_height);

@@ -157,11 +157,10 @@ t_vector ray_color(t_ray ray, t_rt rt)
     if (h_rec.t > 0.0)
     {
         rt.l.light_dir = unit_vector(vec_sub(rt.l.point, h_rec.point));
-        // still need to add check for plane and cylinder shadows
         check_shadow(rt, &in_shadow, h_rec);
-        if (in_shadow == 1)
-            return (vec_mult(h_rec.color, 0.4));
         compute_lighting(&color, rt, h_rec);
+         if (in_shadow == 1)
+            color = vec_mult(color, 0.4);
         return (color);
     }
     return ((t_vector){255, 255, 255});
