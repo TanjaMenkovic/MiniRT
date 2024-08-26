@@ -131,7 +131,7 @@ void    compute_lighting(t_vector *color, t_rt rt, t_hit_record h_rec)
     rt.l.lighting = (t_vector){1.0, 1.0, 1.0};
     diffuse_strength = fmaxf(0.0, dot_prod(rt.l.light_dir, h_rec.normal));
     diffuse = vec_mult(rt.l.light_color, diffuse_strength);
-    reflect_source = unit_vector(reflect(vec_mult(rt.l.point, -1), h_rec.normal));
+    reflect_source = unit_vector(reflect(rt.l.point, h_rec.normal));
     specular_strength = fmaxf(0.0, dot_prod(rt.c.or_vec, reflect_source));
     specular_strength = powf(specular_strength, 32.0);
     specular = vec_mult(rt.l.light_color, specular_strength);
