@@ -196,9 +196,16 @@ float hit_plane(t_vector normal, t_vector point, t_ray ray);
 float hit_cylinder(t_vector base_center, t_vector axis_dir, float radius, float height, t_ray ray);
 t_vector cyl_normal(t_vector point, t_vector base_center, t_vector axis_dir, float height, float radius);
 
+/* pixel_color.c */
+void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
+int get_rgba(int r, int g, int b, int a);
+
 /* color.c */
 t_vector ray_color(t_ray ray, t_rt rt);
 void	set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
 int get_rgba(int r, int g, int b, int a);
+
+/* shadow.c */
+void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec);
 
 #endif
