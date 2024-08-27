@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:36 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 17:33:11 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:47:36 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ typedef struct s_cyl_body
 	float	z2;
 }	t_cyl_body;
 
-/* infrmations from .rt file */
+/* informations from .rt file */
 typedef struct s_rt
 {
 	mlx_t		*mlx;
@@ -231,9 +231,6 @@ void		init_sphere(t_rt *rt);
 void		init_plane(t_rt *rt);
 void		init_cylinder(t_rt *rt);
 
-/* freeing.c */
-void		free_all(t_rt *rt);
-
 /* utils_figures.c */
 t_vec		reflect(t_vec I, t_vec N);
 
@@ -258,5 +255,9 @@ int			get_rgba(int r, int g, int b, int a);
 
 /* shadow.c */
 void		check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec);
+
+/* freeing.c */
+void		free_pars(t_rt *rt);
+void		free_all(t_rt *rt);
 
 #endif

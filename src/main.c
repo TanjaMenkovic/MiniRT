@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:44:58 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/27 17:26:14 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:47:04 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	initialize_camera(t_rt *rt)
 {
 	t_init_cam	i;
 
-	rt->aspect_ratio = WIDTH / HEIGHT;
+	rt->aspect_ratio = (float) WIDTH / HEIGHT;
 	i.focal_length = (rt->width / 2) / (tanf((rt->c.fov * (PI / 180)) / 2));
 	i.viewport_w = rt->width * 2;
 	i.viewport_h = i.viewport_w / rt->aspect_ratio;
@@ -107,7 +107,7 @@ int	main(int argc, char **argv)
 	fd = open_file(argv[1]);
 	if (parse_rt(&rt, fd, &j) == 0)
 	{
-		free_all(&rt);
+		free_pars(&rt);
 		close(fd);
 		return (1);
 	}
