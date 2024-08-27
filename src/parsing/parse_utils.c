@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:13:15 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 14:08:31 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:43:54 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ int	parse_normvec(char *str, t_vec *v)
 	return (1);
 }
 
+static void	is_black(t_vec *v, char	**vec)
+{
+	v->x = (float) ft_atoi(vec[0]);
+	v->y = (float) ft_atoi(vec[1]);
+	v->z = (float) ft_atoi(vec[2]);
+	if (v->x < 50 && v->y < 50 && v->z < 50)
+	{
+		v->x = 50.0;
+		v->y = 50.0;
+		v->z = 50.0;
+	}
+	v->x /= 255;
+	v->y /= 255;
+	v->z /= 255;
+}
+
 /* 
 values from [0,255] divided by 255, 
 to get normalized values between [0,1]
@@ -72,9 +88,7 @@ int	parse_color(char *str, t_vec *v)
 	}
 	if (is_color(vec) == 0)
 		return (0);
-	v->x = (float) ft_atoi(vec[0]) / 255;
-	v->y = (float) ft_atoi(vec[1]) / 255;
-	v->z = (float) ft_atoi(vec[2]) / 255;
+	is_black(v, vec);
 	free_arr(vec);
 	return (1);
 }

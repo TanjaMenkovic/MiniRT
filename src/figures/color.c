@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:39:27 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/27 15:03:12 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:35:56 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,5 @@ t_vec	ray_color(t_ray ray, t_rt rt)
 			color = vec_mult(color, 0.4);
 		return (color);
 	}
-	return ((t_vec){255, 255, 255});
+	return ((t_vec){0, 0, 0});
 }
