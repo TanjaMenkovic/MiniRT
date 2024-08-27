@@ -13,6 +13,5 @@ float	ft_atof(char *str);
 /* utils1.c */
 int is_ulong(char *str);
 int is_color(char **str);
-void    print_doublearr(char **arr);
 
 #endif
