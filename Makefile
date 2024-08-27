@@ -17,8 +17,8 @@ COMMON_SRC := src/main.c \
 				src/ray/ray.c \
 				src/utils/utils.c src/utils/utils1.c \
 				src/vector/vector.c src/vector/vector1.c src/vector/vector2.c \
-				src/figures/color.c src/figures/cylinder.c src/figures/plane.c \
-				src/figures/sphere.c src/figures/utils_figures.c
+				src/figures/color.c src/figures/cylinder.c src/figures/plane.c src/figures/pixel_color.c \
+				src/figures/shadow.c src/figures/sphere.c src/figures/utils_figures.c 
 
 VPATH := $(sort $(dir $(COMMON_SRC)))
 
