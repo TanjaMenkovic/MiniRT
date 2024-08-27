@@ -62,50 +62,13 @@ static void	close_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-void    render_scene(t_rt rt);
-
-// static void resize_callback(int32_t width, int32_t height, void *param)
-// {
-//     t_rt *rt;
-    
-//     rt = param;
-//     rt->width = width;
-//     rt->height = height;
-//     mlx_delete_image(rt->mlx, rt->img);
-//     rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
-//     render_scene(*rt);
-//     mlx_image_to_window(rt->mlx, rt->img, 0, 0);
-// }
-
-static void resize_callback(int32_t width, int32_t height, void *param)
-{
-    t_rt *rt;
-    
-    rt = param;
-    
-    // Update the width and height in your structure
-    rt->width = width;
-    rt->height = height;
-    
-    // Resize the existing image instead of deleting and recreating
-    if (mlx_resize_image(rt->img, width, height) != MLX_SUCCESS)
-    {
-        // Handle the error if resizing fails
-        printf("Failed to resize image\n");
-        return;
-    }
-    initialize_camera(rt);
-    // Re-render the scene to the resized image
-    render_scene(*rt);
-}
-
 void    initialize_mlx(t_rt *rt)
 {
     rt->mlx = mlx_init(rt->width, rt->height, "miniRT", true);
     rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
+    mlx_set_setting(MLX_STRETCH_IMAGE, true);
     mlx_image_to_window(rt->mlx, rt->img, 0, 0);
     mlx_loop_hook(rt->mlx, &close_hook, rt->mlx);
-    mlx_resize_hook(rt->mlx, &resize_callback, rt);
 }
 
 void    render_scene(t_rt rt)
@@ -145,20 +108,16 @@ int main(int argc, char **argv)
     check_args(argc, argv);
     init_rt(&rt, &j, argv);
     fd = open_file(argv[1]);
-    // Need to divide diameter by 2 in sphere and cylinder!!!!
     if (parse_rt(&rt, fd, &j) == 0)
     {
-        //free everything
         free_all(&rt);
         close(fd);
         return (1);
     }   
     close(fd);
-
     initialize_camera(&rt);
     initialize_mlx(&rt);
     render_scene(rt);
-
     mlx_loop(rt.mlx);
     free_all(&rt);
     return (0);
