@@ -6,7 +6,7 @@
 /*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:21:24 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 16:22:42 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:34:43 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	is_substr(char *str, char *sub)
 
 void	ft_num_of_sub(const char *str, const char *sub, int *count)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	if (!str || !sub)

@@ -6,7 +6,7 @@
 /*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:20:29 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 17:20:01 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:25:29 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char	**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	if (!s || !(split = malloc((count_words(s, c) + 1) * sizeof(char *))))
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!s || !split)
 		return (0);
 	i = 0;
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:18:09 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 16:18:10 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:31:56 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_split
+{
+	char	**words;
+	int		*w_size;
+}	t_split;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
