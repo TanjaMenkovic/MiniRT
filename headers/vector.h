@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:57 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:58:08 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:02:27 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_vector
 	float	x;
 	float	y;
 	float	z;
-}	t_vector;
+}	t_vec;
 
 typedef struct s_point
 {
