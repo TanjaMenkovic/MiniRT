@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_handling.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 16:20:02 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 16:20:07 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/libft.h"
 
 /* 
@@ -6,7 +18,6 @@
    return_value = 2 when we have same quotes closed without other quote inside
    return_value = 3 if there are no quotes
 */
-
 static int	return_value(char quote, int inside_quotes, int flag)
 {
 	if (quote != 0)

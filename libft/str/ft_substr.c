@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 16:21:24 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 16:22:42 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -47,16 +59,16 @@ int	is_substr(char *str, char *sub)
 
 void	ft_num_of_sub(const char *str, const char *sub, int *count)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 0;
+	i = 0;
 	if (!str || !sub)
 		return ;
-    while (str[i])
-    {
-        j = 0;
-        if (str[i] == sub[j])
+	while (str[i])
+	{
+		j = 0;
+		if (str[i] == sub[j])
 		{
 			while (str[i])
 			{
@@ -70,5 +82,5 @@ void	ft_num_of_sub(const char *str, const char *sub, int *count)
 		}
 		else
 			i++;
-    }
+	}
 }
