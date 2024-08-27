@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   freeing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 13:26:25 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 13:26:27 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minirt.h"
 
-void    free_all(t_rt *rt)
+void	free_all(t_rt *rt)
 {
-    // freeing mlx and img (idk how that is going)
-    free(rt->sp);
-    free(rt->pl);
-    free(rt->cy);
+	free(rt->sp);
+	free(rt->pl);
+	free(rt->cy);
 }
