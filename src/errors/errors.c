@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:26:16 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:26:19 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:54:32 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_msg(char *c, char *str)
 {
-	write(2, "Error: ", 7);
+	write(2, "Error\n", 7);
 	if (c)
 		write(2, c, ft_strlen(c));
 	if (str)
