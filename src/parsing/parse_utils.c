@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:13:15 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:13:16 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:08:31 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	parse_view(char *str, float *num)
 }
 
 /* float values between [-1,1] */
-int	parse_normvec(char *str, t_vector *v)
+int	parse_normvec(char *str, t_vec *v)
 {
 	if (parse_vector(str, v) == 0)
 		return (0);
@@ -53,7 +53,7 @@ int	parse_normvec(char *str, t_vector *v)
 values from [0,255] divided by 255, 
 to get normalized values between [0,1]
 */
-int	parse_color(char *str, t_vector *v)
+int	parse_color(char *str, t_vec *v)
 {
 	char	**vec;
 

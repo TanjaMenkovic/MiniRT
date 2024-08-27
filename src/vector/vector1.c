@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   vector1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:31:16 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:31:18 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:10:13 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/vector.h"
 
-t_vector	vec_mult(t_vector v, float a)
+t_vec	vec_mult(t_vec v, float a)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w.x = a * v.x;
 	w.y = a * v.y;
@@ -22,9 +22,9 @@ t_vector	vec_mult(t_vector v, float a)
 	return (w);
 }
 
-t_vector	vec_div(t_vector v, float a)
+t_vec	vec_div(t_vec v, float a)
 {
-	t_vector	w;
+	t_vec	w;
 
 	if (a == 0)
 	{
@@ -37,14 +37,14 @@ t_vector	vec_div(t_vector v, float a)
 	return (w);
 }
 
-float	dot_prod(t_vector v, t_vector u)
+float	dot_prod(t_vec v, t_vec u)
 {
 	return (v.x * u.x + v.y * u.y + v.z * u.z);
 }
 
-t_vector	cross_prod(t_vector v, t_vector u)
+t_vec	cross_prod(t_vec v, t_vec u)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w.x = v.y * u.z - v.z * u.y;
 	w.y = v.z * u.x - v.x * u.z;
@@ -52,9 +52,9 @@ t_vector	cross_prod(t_vector v, t_vector u)
 	return (w);
 }
 
-t_vector	vec_norm(t_vector v)
+t_vec	vec_norm(t_vec v)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w = vec_div(v, vec_len(v));
 	return (w);

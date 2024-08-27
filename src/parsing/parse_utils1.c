@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:13:00 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:13:02 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:08:39 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	parse_float(char *str, float *num)
 	return (1);
 }
 
-int	parse_vector(char *str, t_vector *v)
+int	parse_vector(char *str, t_vec *v)
 {
 	char	**vec;
 

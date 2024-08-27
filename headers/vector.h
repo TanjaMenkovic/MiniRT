@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:57 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 14:02:27 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:53:37 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ typedef struct s_point
 
 /* vector.c */
 float		ft_sqr(float n);
-float		vec_len(t_vector v);
-t_vector	vec_add(t_vector v, t_vector u);
-t_vector	vec_sub(t_vector v, t_vector u);
-t_vector	vec_neg(t_vector v);
+float		vec_len(t_vec v);
+t_vec	vec_add(t_vec v, t_vec u);
+t_vec	vec_sub(t_vec v, t_vec u);
+t_vec	vec_neg(t_vec v);
 
 /* vector1.c */
-t_vector	vec_mult(t_vector v, float a);
-t_vector	vec_div(t_vector v, float a);
-float		dot_prod(t_vector v, t_vector u);
-t_vector	cross_prod(t_vector v, t_vector u);
-t_vector	vec_norm(t_vector v);
+t_vec	vec_mult(t_vec v, float a);
+t_vec	vec_div(t_vec v, float a);
+float		dot_prod(t_vec v, t_vec u);
+t_vec	cross_prod(t_vec v, t_vec u);
+t_vec	vec_norm(t_vec v);
 
 /* vector2.c */
-t_vector	unit_vector(t_vector v);
+t_vec	unit_vec(t_vec v);
 
 #endif

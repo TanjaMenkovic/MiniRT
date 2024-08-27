@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 13:29:23 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 14:09:15 by ohertzbe         ###   ########.fr       */
+/*   Created: 2024/08/27 15:00:22 by ohertzbe          #+#    #+#             */
+/*   Updated: 2024/08/27 15:03:58 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/ray.h"
+#include "../headers/minirt.h"
 
-t_ray	init_ray(t_vec s, t_vec d)
+void	check_args(int argc, char **argv)
 {
-	t_ray	r;
-
-	r.start = s;
-	r.direction = d;
-	r.t = RAY_MAX;
-	return (r);
-}
-
-t_vec	ray_point(t_ray r, float t)
-{
-	return (vec_add(r.start, vec_mult(r.direction, t)));
+	if (argc != 2)
+	{
+		error_msg("number of arguments is not valid!\n",
+			"Usage: ./miniRT <scene_file.rt>\n");
+		exit(EXIT_FAILURE);
+	}
+	if (ft_strchr(argv[1], '.') == NULL
+		|| ft_strcmp(ft_strchr(argv[1], '.'), ".rt") != 0)
+	{
+		error_msg("argument is not correct!\n",
+			"Usage: ./miniRT <scene_file.rt>\n");
+		exit(EXIT_FAILURE);
+	}
 }

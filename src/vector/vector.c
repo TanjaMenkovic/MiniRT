@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:31:35 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 13:31:37 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:09:55 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ float	ft_sqr(float n)
 	return (n * n);
 }
 
-float	vec_len(t_vector v)
+float	vec_len(t_vec v)
 {
 	float	l;
 
@@ -25,9 +25,9 @@ float	vec_len(t_vector v)
 	return (l);
 }
 
-t_vector	vec_add(t_vector v, t_vector u)
+t_vec	vec_add(t_vec v, t_vec u)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w.x = u.x + v.x;
 	w.y = u.y + v.y;
@@ -35,9 +35,9 @@ t_vector	vec_add(t_vector v, t_vector u)
 	return (w);
 }
 
-t_vector	vec_sub(t_vector v, t_vector u)
+t_vec	vec_sub(t_vec v, t_vec u)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w.x = v.x - u.x;
 	w.y = v.y - u.y;
@@ -45,9 +45,9 @@ t_vector	vec_sub(t_vector v, t_vector u)
 	return (w);
 }
 
-t_vector	vec_neg(t_vector v)
+t_vec	vec_neg(t_vec v)
 {
-	t_vector	w;
+	t_vec	w;
 
 	w.x = -v.x;
 	w.y = -v.y;

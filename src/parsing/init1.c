@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:04:14 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/24 16:04:52 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:01:45 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_cylinder(t_rt *rt)
 	{
 		rt->cy[i].id = 0;
 		init_vector(&rt->cy[i].center);
-		init_vector(&rt->cy[i].normal);
+		init_vector(&rt->cy[i].axis);
 		rt->cy[i].radius = 0.0;
 		rt->cy[i].height = 0.0;
 		init_vector(&rt->cy[i].col);

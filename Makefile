@@ -11,7 +11,7 @@ LIBS_MAC := $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw \
             -framework OpenGL -framework IOKit ./libft/libft.a
 
 COMMON_SRC := src/main.c \
-				src/errors/errors.c	src/errors/freeing.c \
+				src/errors/errors.c	src/errors/freeing.c  src/parsing/check_args.c \
 				src/parsing/files.c src/parsing/init.c src/parsing/init1.c src/parsing/parse_mandatory.c \
 				src/parsing/parse_objects.c src/parsing/parse_utils.c src/parsing/parse_utils1.c src/parsing/rtfile.c \
 				src/ray/ray.c \

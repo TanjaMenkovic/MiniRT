@@ -6,13 +6,13 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:05:19 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/26 19:53:02 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:07:40 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minirt.h"
 
-void	init_vector(t_vector *v)
+void	init_vector(t_vec *v)
 {
 	v->x = 0.0;
 	v->y = 0.0;

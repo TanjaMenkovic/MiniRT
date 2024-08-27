@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:19:05 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/24 16:25:01 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:01:57 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	help_cy(int i, t_cylinder *cy, char **line)
 	{
 		if (i == 1 && parse_vector(line[i], &cy->center) == 0)
 			return (0);
-		if (i == 2 && parse_normvec(line[i], &cy->normal) == 0)
+		if (i == 2 && parse_normvec(line[i], &cy->axis) == 0)
 			return (0);
 		if (i == 3 && parse_float(line[i], &cy->radius) == 0)
 			return (0);
