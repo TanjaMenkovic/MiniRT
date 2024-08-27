@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:36 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 17:47:36 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:07:11 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <math.h>
 
 /* Constants */
-# define WIDTH 1280
+# define WIDTH 1080
 # define HEIGHT 720
 # define PI 3.1415927f
 

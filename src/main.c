@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:44:58 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/27 17:47:04 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:59:29 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,26 @@ static void	close_hook(void *param)
 void	initialize_mlx(t_rt *rt)
 {
 	rt->mlx = mlx_init(rt->width, rt->height, "miniRT", true);
+	if (!rt->mlx)
+	{
+		printf("mlx_init failed\n");
+		free_all(rt);
+		exit(1);
+	}
 	rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
+	if (!rt->img)
+	{
+		printf("mlx_new_image failed\n");
+		free_all(rt);
+		exit(1);
+	}
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_image_to_window(rt->mlx, rt->img, 0, 0);
+	if (mlx_image_to_window(rt->mlx, rt->img, 0, 0) == -1)
+	{
+		printf("mlx_image_to_window failed\n");
+		free_all(rt);
+		exit(1);
+	}
 	mlx_loop_hook(rt->mlx, &close_hook, rt->mlx);
 }
 
