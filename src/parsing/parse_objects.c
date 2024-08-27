@@ -63,6 +63,24 @@ int	parse_plane(char **line, t_rt *rt, int id)
 	return (1);
 }
 
+static int	help_cy(int i, t_cylinder *cy, char **line)
+{
+	while (line && line[++i])
+	{
+		if (i == 1 && parse_vector(line[i], &cy->center) == 0)
+			return (0);
+		if (i == 2 && parse_normvec(line[i], &cy->normal) == 0)
+			return (0);
+		if (i == 3 && parse_float(line[i], &cy->radius) == 0)
+			return (0);
+		if (i == 4 && parse_float(line[i], &cy->height) == 0)
+			return (0);
+		if (i == 5 && parse_color(line[i], &cy->col) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 int	parse_cylinder(char **line, t_rt *rt, int id)
 {
 	t_cylinder	cy;
@@ -71,19 +89,8 @@ int	parse_cylinder(char **line, t_rt *rt, int id)
 	i = 0;
 	if (numofel(line, 6) == 0)
 		return (0);
-	while (line && line[++i])
-	{
-		if (i == 1 && parse_vector(line[i], &cy.center) == 0)
-			return (0);
-		if (i == 2 && parse_normvec(line[i], &cy.normal) == 0)
-			return (0);
-		if (i == 3 && parse_float(line[i], &cy.radius) == 0)
-			return (0);
-		if (i == 4 && parse_float(line[i], &cy.height) == 0)
-			return (0);
-		if (i == 5 && parse_color(line[i], &cy.col) == 0)
-			return (0);
-	}
+	if (help_cy(i, &cy, line) == 0)
+		return (0);
 	cy.radius /= 2;
 	cy.id = id;
 	if (id < rt->num_cy)
