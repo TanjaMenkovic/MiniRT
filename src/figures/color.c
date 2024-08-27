@@ -67,13 +67,10 @@ void    check_cylinders(t_ray ray, t_rt rt, t_hit_record *h_rec)
     }
 }
 
-void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
+int    sphere_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
 {
     int i;
 
-    rt.l.shadow_ray.start = h_rec.point;
-    rt.l.shadow_ray.direction = rt.l.light_dir;
-    *in_shadow = 0;
     i = -1;
     while (++i < rt.num_sp)
     {
@@ -82,9 +79,16 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
             if (h_rec.shape == 0 && h_rec.id == i)
                 continue ;
             *in_shadow = 1;
-            return ;
+            return (1);
         }
     }
+    return (0);
+}
+
+int cylinder_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
+{
+    int i;
+
     i = -1;
     while (++i < rt.num_cy)
     {
@@ -93,16 +97,25 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
             if (h_rec.shape == 2 && h_rec.id == i)
                 continue ;
             *in_shadow = 1;
-            return ;
+            return (1);
         }
     }
+    return (0);
+}
+
+void    plane_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
+{
+    int i;
+    float t_hit;
+    float light_dist;
+
     i = -1;
     while(++i < rt.num_pl)
     {
-        float t_hit = hit_plane(rt.pl[i].normal, rt.pl[i].point, rt.l.shadow_ray);
+        t_hit = hit_plane(rt.pl[i].normal, rt.pl[i].point, rt.l.shadow_ray);
         if (t_hit > 0.0)
         {
-            float light_dist = vec_len(rt.l.light_dir);
+            light_dist = vec_len(rt.l.light_dir);
             if (t_hit < light_dist)
             {
                 if (h_rec.shape == 1 && h_rec.id == i)
@@ -112,6 +125,20 @@ void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
             }
         }
     }
+}
+
+void    check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
+{
+    int i;
+
+    rt.l.shadow_ray.start = h_rec.point;
+    rt.l.shadow_ray.direction = rt.l.light_dir;
+    *in_shadow = 0;
+    if (sphere_shadow(rt, in_shadow, h_rec) == 1)
+        return ;
+    if (cylinder_shadow(rt, in_shadow, h_rec) == 1)
+        return ;
+    plane_shadow(rt, in_shadow, h_rec);
 }
 
 /*
