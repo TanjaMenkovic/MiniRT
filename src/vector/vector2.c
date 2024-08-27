@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 13:31:28 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 13:31:30 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/vector.h"
 
-t_vector    unit_vector(t_vector v)
+t_vector	unit_vector(t_vector v)
 {
-    return (vec_div(v, vec_len(v)));
+	return (vec_div(v, vec_len(v)));
 }

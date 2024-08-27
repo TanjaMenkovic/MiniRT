@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 13:31:35 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 13:31:37 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/vector.h"
 
 float	ft_sqr(float n)
@@ -16,6 +28,7 @@ float	vec_len(t_vector v)
 t_vector	vec_add(t_vector v, t_vector u)
 {
 	t_vector	w;
+
 	w.x = u.x + v.x;
 	w.y = u.y + v.y;
 	w.z = u.z + v.z;
@@ -25,6 +38,7 @@ t_vector	vec_add(t_vector v, t_vector u)
 t_vector	vec_sub(t_vector v, t_vector u)
 {
 	t_vector	w;
+
 	w.x = v.x - u.x;
 	w.y = v.y - u.y;
 	w.z = v.z - u.z;
