@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:57 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 14:53:37 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:33:51 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_point
 }	t_point;
 
 /* vector.c */
-float		ft_sqr(float n);
-float		vec_len(t_vec v);
+float	ft_sqr(float n);
+float	vec_len(t_vec v);
 t_vec	vec_add(t_vec v, t_vec u);
 t_vec	vec_sub(t_vec v, t_vec u);
 t_vec	vec_neg(t_vec v);
@@ -42,7 +42,7 @@ t_vec	vec_neg(t_vec v);
 /* vector1.c */
 t_vec	vec_mult(t_vec v, float a);
 t_vec	vec_div(t_vec v, float a);
-float		dot_prod(t_vec v, t_vec u);
+float	dot_prod(t_vec v, t_vec u);
 t_vec	cross_prod(t_vec v, t_vec u);
 t_vec	vec_norm(t_vec v);
 

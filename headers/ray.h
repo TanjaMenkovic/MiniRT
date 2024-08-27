@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:46 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 14:04:52 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:33:38 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_ray
 {
 	t_vec	start;
 	t_vec	direction;
-	float		t;
+	float	t;
 }	t_ray;
 
 /* 
@@ -45,13 +45,13 @@ typedef struct s_hit_record
 	t_vec	color;
 	t_vec	normal;
 	t_vec	center;
-	int			shape;
-	int			id;
-	float		t;
+	int		shape;
+	int		id;
+	float	t;
 
 }	t_hit_record;
 
-t_ray		init_ray(t_vec s, t_vec d);
+t_ray	init_ray(t_vec s, t_vec d);
 t_vec	ray_point(t_ray r, float t);
 
 #endif

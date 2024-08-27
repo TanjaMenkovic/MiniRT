@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:36 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 15:01:09 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:33:11 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 /* Constants */
 # define WIDTH 1280
 # define HEIGHT 720
-# define ASPECT_RATIO ((float)WIDTH/HEIGHT)
-# define VIEWPORT_H  ((float)2.0)
-# define VIEWPORT_W  ((float)2.0 * ASPECT_RATIO)
 # define PI 3.1415927f
 
 /* A 0.2 255,255,255 */
@@ -36,21 +33,21 @@ typedef struct s_amb
 {
 	int			id;
 	float		ratio;
-	t_vec	col;
+	t_vec		col;
 }	t_amb;
 
 typedef struct s_init_cam
 {
 	float		focal_length;
-	t_vec	focal;
-	t_vec	viewport_u;
-	t_vec	viewport_v;
-	t_vec	viewport_up_l;
+	t_vec		focal;
+	t_vec		viewport_u;
+	t_vec		viewport_v;
+	t_vec		viewport_up_l;
 	float		viewport_w;
 	float		viewport_h;
-	t_vec	camera_f;
-	t_vec	camera_r;
-	t_vec	camera_up;
+	t_vec		camera_f;
+	t_vec		camera_r;
+	t_vec		camera_up;
 }	t_init_cam;
 
 /*
@@ -61,24 +58,24 @@ fov=Horizontal field of view
 typedef struct s_camera
 {
 	int			id;
-	t_vec	point;
-	t_vec	or_vec;
+	t_vec		point;
+	t_vec		or_vec;
 	float		fov;
-	t_vec	px00loc;
-	t_vec	px_delta_u;
-	t_vec	px_delta_v;
+	t_vec		px00loc;
+	t_vec		px_delta_u;
+	t_vec		px_delta_v;
 }	t_camera;
 
 typedef struct s_render
 {
-    t_vec   color;
-	int     rgba;
-	int     x;
-	int     y;
-	t_vec   px_center;
-	t_vec   ray_direction;
-	t_ray   ray;
-} t_render;
+	t_vec	color;
+	int		rgba;
+	int		x;
+	int		y;
+	t_vec	px_center;
+	t_vec	ray_direction;
+	t_ray	ray;
+}	t_render;
 
 /* 
 L -40.0,50.0,0.0 0.6 10,0,255 
@@ -89,14 +86,14 @@ col=color
 */
 typedef struct s_light
 {
-	int			id;
+	int		id;
 	t_vec	point;
-	float		bright;
+	float	bright;
 	t_vec	col;
 	t_vec	light_dir;
 	t_vec	light_color;
 	t_vec	lighting;
-	t_ray		shadow_ray;
+	t_ray	shadow_ray;
 }	t_light;
 
 /* 
@@ -104,9 +101,9 @@ sp 0,0,20 10 255,0,0
 */
 typedef struct s_sphere
 {
-	int			id;
+	int		id;
 	t_vec	center;
-	float		radius;
+	float	radius;
 	t_vec	col;
 }	t_sphere;
 
@@ -117,7 +114,7 @@ normal=3d normalized normal vector
 */
 typedef struct s_plane
 {
-	int			id;
+	int		id;
 	t_vec	point;
 	t_vec	normal;
 	t_vec	col;
@@ -128,41 +125,41 @@ cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
 */
 typedef struct s_cylinder
 {
-	int			id;
+	int		id;
 	t_vec	center;
 	t_vec	axis;
-	float		radius;
-	float		height;
+	float	radius;
+	float	height;
 	t_vec	col;
 }	t_cylinder;
 
 typedef struct s_cyl_normal
 {
-    float		proj_length;
-	t_vec		p_minus_c;
-	t_vec		proj_p_minus_c;
-	t_vec		normal;
-	t_vec		base_center;
-	t_vec		top_center;
-} t_cyl_normal;
+	float	proj_length;
+	t_vec	p_minus_c;
+	t_vec	proj_p_minus_c;
+	t_vec	normal;
+	t_vec	base_center;
+	t_vec	top_center;
+}	t_cyl_normal;
 
 typedef struct s_cyl_body
 {
-	float		t_cylinder;
+	float	t_cylinder;
 	t_vec	oc;
 	t_vec	oc_perp;
 	t_vec	ray_dir_perp;
-	float		a;
-	float		b;
-	float		c;
-	float		discriminant;
-	float		sqrt_discriminant;
-	float		t1;
-	float		t2;
+	float	a;
+	float	b;
+	float	c;
+	float	discriminant;
+	float	sqrt_discriminant;
+	float	t1;
+	float	t2;
 	t_vec	p1;
 	t_vec	p2;
-	float		z1;
-	float		z2;
+	float	z1;
+	float	z2;
 }	t_cyl_body;
 
 /* infrmations from .rt file */
@@ -170,6 +167,7 @@ typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	float		aspect_ratio;
 	t_amb		a;
 	t_camera	c;
 	t_light		l;
@@ -194,7 +192,7 @@ typedef struct s_index
 int			open_file(char *file);
 
 /* check_args.c */
-void	check_args(int argc, char **argv);
+void		check_args(int argc, char **argv);
 
 /* parse_utils.c */
 int			parse_ratio(char *str, float *num);
@@ -237,7 +235,7 @@ void		init_cylinder(t_rt *rt);
 void		free_all(t_rt *rt);
 
 /* utils_figures.c */
-t_vec	reflect(t_vec I, t_vec N);
+t_vec		reflect(t_vec I, t_vec N);
 
 /* sphere.c */
 float		hit_sphere(t_vec center, float radius, t_ray ray);
@@ -247,14 +245,14 @@ float		hit_plane(t_vec normal, t_vec point, t_ray ray);
 
 /* cylinder.c */
 float		hit_cylinder(t_cylinder c, t_ray ray);
-t_vec	cyl_normal(t_vec point, t_cylinder c, float height, float radius);
+t_vec		cyl_normal(t_vec point, t_cylinder c, float height, float radius);
 
 /* pixel_color.c */
 void		set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
 int			get_rgba(int r, int g, int b, int a);
 
 /* color.c */
-t_vec	ray_color(t_ray ray, t_rt rt);
+t_vec		ray_color(t_ray ray, t_rt rt);
 void		set_px_col(mlx_image_t *img, int x, int y, unsigned int color);
 int			get_rgba(int r, int g, int b, int a);
 

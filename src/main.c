@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:44:58 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/27 15:00:04 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:26:14 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	initialize_camera(t_rt *rt)
 {
 	t_init_cam	i;
 
+	rt->aspect_ratio = WIDTH / HEIGHT;
 	i.focal_length = (rt->width / 2) / (tanf((rt->c.fov * (PI / 180)) / 2));
 	i.viewport_w = rt->width * 2;
-	i.viewport_h = i.viewport_w / ASPECT_RATIO;
+	i.viewport_h = i.viewport_w / rt->aspect_ratio;
 	i.camera_f = unit_vec(rt->c.or_vec);
 	if (vec_len(cross_prod((t_vec){0, 1, 0}, i.camera_f)) != 0)
 		i.camera_r = unit_vec(cross_prod((t_vec){0, 1, 0}, i.camera_f));
