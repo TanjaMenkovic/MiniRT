@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 13:40:57 by tmenkovi          #+#    #+#             */
+/*   Updated: 2024/08/27 13:58:08 by tmenkovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VECTOR_H
 # define VECTOR_H
 
@@ -9,15 +21,15 @@
 
 typedef struct s_vector
 {
-	float x;
-	float y;
-	float z;
+	float	x;
+	float	y;
+	float	z;
 }	t_vector;
 
-typedef struct	s_point
+typedef struct s_point
 {
-	float x;
-	float y;
+	float	x;
+	float	y;
 }	t_point;
 
 /* vector.c */
@@ -35,6 +47,6 @@ t_vector	cross_prod(t_vector v, t_vector u);
 t_vector	vec_norm(t_vector v);
 
 /* vector2.c */
-t_vector    unit_vector(t_vector v);
+t_vector	unit_vector(t_vector v);
 
 #endif
