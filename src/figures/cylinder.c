@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:49:52 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/28 00:12:59 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:24:00 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,58 +96,23 @@ float	hit_cylinder(t_cylinder c, t_ray ray)
 	return (t_cylinder);
 }
 
-// t_vec	cyl_normal(t_vec point, t_cylinder c, float height, float radius)
-// {
-// 	t_cyl_normal	cy;
+t_vec	cyl_normal(t_vec point, t_cylinder c, float height, float radius)
+{
+	t_vec	bottom_center;
+	t_vec	top_center;
+	t_vec	surface_normal;
+	float	t;
+	t_vec	pt;
 
-// 	c.axis = unit_vec(c.axis);
-// 	cy.base_center = vec_sub(c.center, vec_mult(c.axis, height / 2.0f));
-// 	cy.top_center = vec_add(c.center, vec_mult(c.axis, height / 2.0f));
-// 	cy.p_minus_c = vec_sub(point, c.center);
-// 	cy.proj_length = dot_prod(cy.p_minus_c, c.axis);
-// 	if (cy.proj_length >= height / 2.0f)
-// 		return (c.axis);
-// 	else if (cy.proj_length <= -height / 2.0f)
-// 		return (vec_mult(c.axis, -1.0f));
-// 	cy.proj_p_minus_c = vec_mult(c.axis, cy.proj_length);
-// 	cy.normal = vec_sub(cy.p_minus_c, cy.proj_p_minus_c);
-// 	cy.normal = unit_vec(cy.normal);
-// 	return (cy.normal);
-// }
-
-t_vec cyl_normal(t_vec point, t_cylinder c, float height, float radius) {
 	c.axis = unit_vec(c.axis);
-    // Vector from the cylinder center to the point
-    t_vec center_to_point = vec_sub(point, c.center);
-
-    // Project the vector onto the cylinder axis to get the height component
-    float proj_length = dot_prod(center_to_point, c.axis);
-    
-    // Clamp the projection length to the height of the cylinder
-    if (proj_length < 0.0f) proj_length = 0.0f;
-    if (proj_length > height) proj_length = height;
-
-    // Find the closest point on the cylinder axis to the point on the surface
-    t_vec closest_point_on_axis = vec_add(c.center, vec_mult(c.axis, proj_length));
-    
-    // Vector from the closest point on the axis to the point on the surface
-    t_vec normal = vec_sub(point, closest_point_on_axis);
-    
-    // If the magnitude of this vector is approximately equal to the radius, it's on the curved surface
-    float distance = sqrt(dot_prod(normal, normal));
-    if (fabs(distance - radius) < 1e-6) {
-        return unit_vec(normal);
-    }
-    
-    // If the point is not on the curved surface, it could be on one of the caps
-    // Check if the point is on the top or bottom cap by comparing with the axis direction
-    if (proj_length <= 1e-6) {  // Point is on the bottom cap
-        return vec_mult(c.axis, -1.0f);
-    } else if (fabs(proj_length - height) <= 1e-6) {  // Point is on the top cap
-        return c.axis;
-    }
-
-    // Default case (should not happen for valid input)
-    t_vec invalid_normal = {0.0f, 0.0f, 0.0f};
-    return invalid_normal;
+	bottom_center = vec_sub(c.center, vec_mult(c.axis, height / 2.0f));
+	top_center = vec_add(c.center, vec_mult(c.axis, height / 2.0f));
+	if (vec_len(vec_sub(point, top_center)) < radius)
+		return (c.axis);
+	if (vec_len(vec_sub(point, bottom_center)) < radius)
+		return (vec_mult(c.axis, -1.0f));
+	t = dot_prod(vec_sub(point, bottom_center), c.axis);
+	pt = vec_add(bottom_center, vec_mult(c.axis, t));
+	surface_normal = unit_vec(vec_sub(point, pt));
+	return (surface_normal);
 }
