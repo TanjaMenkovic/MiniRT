@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:40:36 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 18:25:20 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:21:13 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int			parse_color(char *str, t_vec *v);
 int			parse_float(char *str, float *num);
 int			parse_ulong(char *str, size_t *num);
 int			parse_vector(char *str, t_vec *v);
+int			check_comma(char *str);
 
 /* parse_mandatory.c */
 int			parse_amb(char **line, t_rt *rt);

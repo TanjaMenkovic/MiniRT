@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:13:15 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/27 18:43:54 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:26:43 by tmenkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	parse_view(char *str, float *num)
 		error_msg("field view needs to be in interval [0,180]!\n", 0);
 		return (0);
 	}
+	if (*num > 179.0)
+		*num = 179.0;
 	return (1);
 }
 
@@ -73,6 +75,8 @@ int	parse_color(char *str, t_vec *v)
 {
 	char	**vec;
 
+	if (check_comma(str) == 0)
+		return (0);
 	vec = ft_split(str, ',');
 	if (doublelen(vec) != 3)
 	{
