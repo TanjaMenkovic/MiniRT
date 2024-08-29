@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmenkovi <tmenkovi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:13:00 by tmenkovi          #+#    #+#             */
-/*   Updated: 2024/08/28 10:23:36 by tmenkovi         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:08:39 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,10 @@ int	parse_float(char *str, float *num)
 	return (1);
 }
 
-int	check_comma(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (str[len - 1] == ',')
-	{
-		error_msg("invalid character!\n", 0);
-		return (0);
-	}
-	return (1);
-}
-
 int	parse_vector(char *str, t_vec *v)
 {
 	char	**vec;
 
-	if (check_comma(str) == 0)
-		return (0);
 	vec = ft_split(str, ',');
 	if (doublelen(vec) != 3)
 	{

@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:49:52 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/28 12:24:00 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:02:47 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,19 @@ float	hit_cylinder(t_cylinder c, t_ray ray)
 
 t_vec	cyl_normal(t_vec point, t_cylinder c, float height, float radius)
 {
-	t_vec	bottom_center;
-	t_vec	top_center;
-	t_vec	surface_normal;
-	float	t;
-	t_vec	pt;
+	t_cyl_normal	cy;
 
 	c.axis = unit_vec(c.axis);
-	bottom_center = vec_sub(c.center, vec_mult(c.axis, height / 2.0f));
-	top_center = vec_add(c.center, vec_mult(c.axis, height / 2.0f));
-	if (vec_len(vec_sub(point, top_center)) < radius)
+	cy.base_center = vec_sub(c.center, vec_mult(c.axis, height / 2.0f));
+	cy.top_center = vec_add(c.center, vec_mult(c.axis, height / 2.0f));
+	cy.p_minus_c = vec_sub(point, c.center);
+	cy.proj_length = dot_prod(cy.p_minus_c, c.axis);
+	if (cy.proj_length >= height / 2.0f)
 		return (c.axis);
-	if (vec_len(vec_sub(point, bottom_center)) < radius)
+	else if (cy.proj_length <= -height / 2.0f)
 		return (vec_mult(c.axis, -1.0f));
-	t = dot_prod(vec_sub(point, bottom_center), c.axis);
-	pt = vec_add(bottom_center, vec_mult(c.axis, t));
-	surface_normal = unit_vec(vec_sub(point, pt));
-	return (surface_normal);
+	cy.proj_p_minus_c = vec_mult(c.axis, cy.proj_length);
+	cy.normal = vec_sub(cy.p_minus_c, cy.proj_p_minus_c);
+	cy.normal = unit_vec(cy.normal);
+	return (cy.normal);
 }

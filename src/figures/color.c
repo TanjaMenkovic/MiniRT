@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:39:27 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/28 12:23:02 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:35:56 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,19 @@ void	compute_lighting(t_vec *color, t_rt rt, t_hit_record h_rec)
 	float		specular_strength;
 	t_vec		diffuse;
 	t_vec		reflect_source;
+	t_vec		specular;
 
 	rt.l.light_color = (t_vec){1.0, 1.0, 1.0};
 	rt.l.lighting = (t_vec){1.0, 1.0, 1.0};
 	diffuse_strength = fmaxf(0.0, dot_prod(rt.l.light_dir, h_rec.normal));
 	diffuse = vec_mult(rt.l.light_color, diffuse_strength);
+	reflect_source = unit_vec(reflect(rt.l.point, h_rec.normal));
+	specular_strength = fmaxf(0.0, dot_prod(rt.c.or_vec, reflect_source));
+	specular_strength = powf(specular_strength, 32.0);
+	specular = vec_mult(rt.l.light_color, specular_strength);
 	rt.l.lighting = vec_add(vec_mult((t_vec)
-			{rt.a.ratio, rt.a.ratio, rt.a.ratio}, 0.5),
-			vec_mult(diffuse, rt.l.bright));
+			{rt.a.ratio, rt.a.ratio, rt.a.ratio}, 0.8), vec_mult(diffuse, 0.5));
+	rt.l.lighting = vec_add(vec_mult(specular, 0.0), rt.l.lighting);
 	*color = (t_vec){h_rec.color.x * rt.l.lighting.x,
 		h_rec.color.y * rt.l.lighting.y, h_rec.color.z * rt.l.lighting.z};
 	color->x = fminf(fmaxf(color->x, 0.0), 255.0);
@@ -125,9 +130,8 @@ t_vec	ray_color(t_ray ray, t_rt rt)
 		check_shadow(rt, &in_shadow, h_rec);
 		compute_lighting(&color, rt, h_rec);
 		if (in_shadow == 1)
-			color = vec_mult(color, (1.0 - ((rt.l.bright * 0.5)
-							+ (rt.a.ratio * 0.5))));
+			color = vec_mult(color, 0.4);
 		return (color);
 	}
-	return ((t_vec){255, 255, 255});
+	return ((t_vec){0, 0, 0});
 }
