@@ -1,6 +1,6 @@
 NAME := miniRT
 CC := cc
-CFLAGS :=
+CFLAGS := -Wall -Wextra -Werror
 LIBMLX := ./MLX42
 
 HEADERS := -I ./headers -I $(LIBMLX)/include -I libft/headers

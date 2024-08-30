@@ -6,7 +6,7 @@
 /*   By: ohertzbe <ohertzbe@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:41:28 by ohertzbe          #+#    #+#             */
-/*   Updated: 2024/08/27 14:42:40 by ohertzbe         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:30:09 by ohertzbe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ static void	plane_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
 
 void	check_shadow(t_rt rt, int *in_shadow, t_hit_record h_rec)
 {
-	int	i;
-
 	rt.l.shadow_ray.start = h_rec.point;
 	rt.l.shadow_ray.direction = rt.l.light_dir;
 	*in_shadow = 0;
