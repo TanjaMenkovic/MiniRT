@@ -1,6 +1,6 @@
 Overview
 
-miniRT is a simple yet powerful ray tracing program built using the MiniLibX library. 
+miniRT is a simple yet powerful ray tracing program built using the MLX42 library. 
 The primary goal of this project is to generate computer-generated images of 3D scenes as seen from a specific angle and position. 
 The scenes are defined by simple geometric objects and feature their own lighting systems.
 
