@@ -47,7 +47,7 @@ Standard C library functions: open, close, read, write, printf, malloc, free, pe
 
 Math library functions (linked with -lm): All necessary functions for geometric and lighting calculations.
 
-MiniLibX library functions: For rendering and window management.
+MLX42 library functions: For rendering and window management.
 
 
 Scene File Format (.rt)
@@ -116,6 +116,3 @@ Run the program with a scene file as an argument.
 Interact with the rendered window:
 Press ESC to close the window and quit the program.
 Click the red cross on the window's frame to close the window and quit the program.
-
-License
-This project is open-source and available under the MIT License. Feel free to use, modify, and distribute as per the license terms.
