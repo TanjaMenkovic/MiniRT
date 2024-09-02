@@ -1,6 +1,6 @@
 Overview
 
-miniRT is a simple yet powerful ray tracing program built using the MiniLibX library. 
+miniRT is a simple yet powerful ray tracing program built using the MLX42 library. 
 The primary goal of this project is to generate computer-generated images of 3D scenes as seen from a specific angle and position. 
 The scenes are defined by simple geometric objects and feature their own lighting systems.
 
@@ -47,7 +47,7 @@ Standard C library functions: open, close, read, write, printf, malloc, free, pe
 
 Math library functions (linked with -lm): All necessary functions for geometric and lighting calculations.
 
-MiniLibX library functions: For rendering and window management.
+MLX42 library functions: For rendering and window management.
 
 
 Scene File Format (.rt)
@@ -116,6 +116,3 @@ Run the program with a scene file as an argument.
 Interact with the rendered window:
 Press ESC to close the window and quit the program.
 Click the red cross on the window's frame to close the window and quit the program.
-
-License
-This project is open-source and available under the MIT License. Feel free to use, modify, and distribute as per the license terms.
